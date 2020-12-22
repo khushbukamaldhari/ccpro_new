@@ -1,5 +1,5 @@
 import React from "react";
-
+import dateFormat from "dateformat";
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 
@@ -26,29 +26,23 @@ import SenderPollBubble from "../SenderPollBubble";
 import ReceiverPollBubble from "../ReceiverPollBubble";
 import SenderStickerBubble from "../SenderStickerBubble";
 import ReceiverStickerBubble from "../ReceiverStickerBubble";
+import SenderDocumentBubble from "../SenderDocumentBubble";
+import ReceiverDocumentBubble from "../ReceiverDocumentBubble";
+import SenderWhiteboardBubble from "../SenderWhiteboardBubble";
+import ReceiverWhiteboardBubble from "../ReceiverWhiteboardBubble";
 
 import CallMessage from "../CallMessage";
-import { SvgAvatar } from '../../util/svgavatar';
-import Avatar from "../Avatar";
-import axios from 'axios';
-import { WP_API_CONSTANTS, COMETCHAT_CONSTANTS, COMETCHAT_VARS, WP_API_ENDPOINTS_CONSTANTS } from '../../../../consts';
-import { addLoader, removeLoader } from '../../../../loader';
-import './style.css';
-import { GroupListManager } from "../CometChatGroupList/controller";
 
 import { 
   chatListStyle,
-  roomTableStyle,
   listWrapperStyle,
   actionMessageStyle,
   actionMessageTxtStyle,
   messageDateContainerStyle,
-  roomTableDivStyle,
   messageDateStyle,
   decoratorMessageStyle,
   decoratorMessageTxtStyle
 } from "./style";
-import TableView from "../TableView";
 
 class MessageList extends React.PureComponent {
   loggedInUser = null;
@@ -61,52 +55,21 @@ class MessageList extends React.PureComponent {
     super(props);
     this.state = {
       onItemClick: null,
-      loading: false,
-      checkUserJoinRoom: false
     }
-    this.loggedInUser = this.props.loggedInUser;
+    
+    this.loggedInUser = props.loggedInUser;
     this.messagesEnd = React.createRef();
   }
 
   componentDidMount() {
-    // if( COMETCHAT_CONSTANTS.MODE == COMETCHAT_VARS.CHAT_MODE_NBR ) {
-    //   new CometChatManager().getLoggedInUser().then((user) => {
-    //     console.log(user);
-        
-    //     this.loggedInUser = user;
-    //     console.log(this.loggedInUser);
-    //   }).catch((error) => {
-    //     console.log("[CometChatUnified] getLoggedInUser error", error);
-    //   });
-    // }else{
-      
-      new CometChatManager().getLoggedInUser().then((user) => {
-        
-        this.loggedInUser = user;
-      }).catch((error) => {
-        console.log("[CometChatUnified] getLoggedInUser error", error);
-      });
-    // }
+
     if(this.props.parentMessageId) {
-      this.MessageListManager = new MessageListManager(this.props.item, this.props.type,this.props.parentMessageId);
+      this.MessageListManager = new MessageListManager(this.props.widgetsettings, this.props.item, this.props.type,this.props.parentMessageId);
     } else {
-      this.MessageListManager = new MessageListManager(this.props.item, this.props.type);
+      this.MessageListManager = new MessageListManager(this.props.widgetsettings, this.props.item, this.props.type);
     }
     
-    if( this.props.type === 'rooms' ){
-      
-      this.MessageListManager.attachListeners(this.messageUpdated);
-    }else{
-      // console.log(script1);
-      this.getMessages();
-      this.MessageListManager.attachListeners(this.messageUpdated);
-    }
-    if( COMETCHAT_CONSTANTS.MODE == COMETCHAT_VARS.CHAT_MODE_NBR ) {
-      this.checkUserRoom();
-    }else{
-      
-    }
-    
+    this.getMessages();
     this.MessageListManager.attachListeners(this.messageUpdated);
   }
 
@@ -116,41 +79,38 @@ class MessageList extends React.PureComponent {
     const currentMessageStr = JSON.stringify(this.props.messages);
 
     if (this.props.type === 'user' && prevProps.item.uid !== this.props.item.uid) {
-      // this.MessageListManager.removeListeners();
-
-      // if (this.props.parentMessageId) {
-      //   this.MessageListManager = new MessageListManager(this.props.widgetsettings, this.props.item, this.props.type, this.props.parentMessageId);
-      // } else {
-      //   this.MessageListManager = new MessageListManager(this.props.widgetsettings, this.props.item, this.props.type);
-      // }
-
-      // this.getMessages();
-      // this.MessageListManager.attachListeners(this.messageUpdated);
-
-
+      
+      this.decoratorMessage = "Loading...";
       this.MessageListManager.removeListeners();
-      this.MessageListManager = new MessageListManager(this.props.item, this.props.type);
+
+      if (this.props.parentMessageId) {
+        this.MessageListManager = new MessageListManager(this.props.widgetsettings, this.props.item, this.props.type, this.props.parentMessageId);
+      } else {
+        this.MessageListManager = new MessageListManager(this.props.widgetsettings, this.props.item, this.props.type);
+      }
+
       this.getMessages();
       this.MessageListManager.attachListeners(this.messageUpdated);
 
-    } else if (this.props.type === 'wpgroup' || this.props.type === 'rooms' ){
-      
-      this.MessageListManager.removeListeners();
-      this.MessageListManager = new MessageListManager(this.props.item, this.props.type);
-      // this.getMessages();
-      this.checkUserRoom();
-      this.MessageListManager.attachListeners(this.messageUpdated);
     } else if (this.props.type === 'group' && prevProps.item.guid !== this.props.item.guid){
 
+      this.decoratorMessage = "Loading...";
       this.MessageListManager.removeListeners();
-      this.MessageListManager = new MessageListManager(this.props.item, this.props.type);
+
+      if (this.props.parentMessageId) {
+        this.MessageListManager = new MessageListManager(this.props.widgetsettings, this.props.item, this.props.type, this.props.parentMessageId);
+      } else {
+        this.MessageListManager = new MessageListManager(this.props.widgetsettings, this.props.item, this.props.type);
+      }
+      
       this.getMessages();
       this.MessageListManager.attachListeners(this.messageUpdated);
-      
+
     } else if(prevProps.parentMessageId !== this.props.parentMessageId) {
-        
+      
+      this.decoratorMessage = "Loading...";
       this.MessageListManager.removeListeners();
-      this.MessageListManager = new MessageListManager(this.props.item, this.props.type, this.props.parentMessageId);
+      this.MessageListManager = new MessageListManager(this.props.widgetsettings, this.props.item, this.props.type, this.props.parentMessageId);
       this.getMessages();
       this.MessageListManager.attachListeners(this.messageUpdated);
 
@@ -177,10 +137,10 @@ class MessageList extends React.PureComponent {
     const actionMessages = [];
     
     new CometChatManager().getLoggedInUser().then((user) => {
-      console.log(user);
+      
       //this.loggedInUser = user;
       this.MessageListManager.fetchPreviousMessages().then(messageList => {
-        console.log("szfsf",messageList);
+
         if (messageList.length === 0) {
           this.decoratorMessage = "No messages found";
         }
@@ -237,28 +197,10 @@ class MessageList extends React.PureComponent {
     });
 
   }
-  
-  checkUserRoom = () => {
 
-    let api_url = `${WP_API_CONSTANTS.WP_API_URL}${WP_API_ENDPOINTS_CONSTANTS.CHECK_USERJOIN_STATUS}`;
-    axios.get( api_url, { params: {
-      user_id: WP_API_CONSTANTS.WP_USER_ID
-    } } ).then(userRoom => {
-      if( userRoom.data.success == false ){
-        this.setState({ checkUserJoinRoom: null });
-      }else{
-        this.setState({ checkUserJoinRoom: userRoom.data.data.table_id });
-      }
-      
-    }).catch(error => {
-
-      this.decoratorMessage = "Error";
-      console.error("[CometChatRoomList] getRooms fetchNextRoom error", error);
-    });
-
-  }
   //callback for listener functions
   messageUpdated = (key, message, group, options) => {
+
     switch(key) {
 
       case enums.MESSAGE_DELETED:
@@ -308,7 +250,7 @@ class MessageList extends React.PureComponent {
         
     } else if (this.props.type === 'user' 
     && message.getReceiverType() === 'user'
-      && message.getSender().uid === this.props.item.uid) {
+    && message.getSender().uid === this.props.item.uid) {
 
       this.props.actionGenerated("messageDeleted", [message]);
     }
@@ -316,11 +258,10 @@ class MessageList extends React.PureComponent {
 
   messageEdited = (message) => {
 
-    if ((this.props.type === 'group' && message.getReceiverType() === 'group' && message.getReceiver().guid === this.props.item.guid) 
-      || (this.props.type === 'user' && message.getReceiverType() === 'user' && message.getReceiverId() === this.props.item.uid)) {
+    const messageList = [...this.props.messages];
+    const updateEditedMessage = (message) => {
 
-      const messageList = [...this.props.messages];
-      let messageKey = messageList.findIndex((m, k) => m.id === message.id);
+      let messageKey = messageList.findIndex(m => m.id === message.id);
 
       if (messageKey > -1) {
 
@@ -330,25 +271,24 @@ class MessageList extends React.PureComponent {
         messageList.splice(messageKey, 1, newMessageObj);
         this.props.actionGenerated("messageUpdated", messageList);
       }
-
     }
 
-    if (message.category === enums.CATEGORY_CUSTOM && message.type === enums.CUSTOM_TYPE_POLL) {
+    if (this.props.type === 'group' && message.getReceiverType() === 'group' && message.getReceiver().guid === this.props.item.guid) {
 
-      if ((this.props.type === 'group' && message.getReceiverType() === 'group' && message.getReceiver().guid === this.props.item.guid)
-        || (this.props.type === 'user' && message.getReceiverType() === 'user' && message.getReceiver().uid === this.props.item.uid)) {
+      updateEditedMessage(message);
 
-        this.updateEditedMessage(message);
-      } 
+    } else if (this.props.type === 'user' 
+    && message.getReceiverType() === 'user' 
+    && (this.loggedInUser.uid === message.getReceiverId() && message.getSender().uid === this.props.item.uid)) {
 
-    } else {
+      updateEditedMessage(message);
 
-      if ((this.props.type === 'group' && message.getReceiverType() === 'group' && message.getReceiver().guid === this.props.item.guid) 
-        || (this.props.type === 'user' && message.getReceiverType() === 'user' && message.getSender().uid === this.props.item.uid)) {
-
-        this.updateEditedMessage(message);
-      } 
+    } else if (this.props.type === 'user'
+    && message.getReceiverType() === 'user'
+    && (this.loggedInUser.uid === message.getSender().uid && message.getReceiverId() === this.props.item.uid)) {
+      updateEditedMessage(message);
     }
+
   }
 
   updateEditedMessage = (message) => {
@@ -440,32 +380,7 @@ class MessageList extends React.PureComponent {
 
   customMessageReceived = (message) => {
 
-    //new messages
-    if (this.props.type === 'group'
-      && message.getReceiverType() === 'group'
-      && message.getReceiverId() === this.props.item.guid) {
-
-      if (!message.getReadAt()) {
-        CometChat.markAsRead(message.getId().toString(), message.getReceiverId(), message.getReceiverType());
-      }
-      
-      if (message.hasOwnProperty("metadata")) {
-
-        this.props.actionGenerated("customMessageReceived", [message]);
-
-      } else if (message.type === enums.CUSTOM_TYPE_STICKER) {
-
-        this.props.actionGenerated("customMessageReceived", [message]);
-
-      } else if (message.type === enums.CUSTOM_TYPE_POLL) {//customdata (poll extension) does not have metadata
-
-        const newMessage = this.addMetadataToCustomData(message);
-        this.props.actionGenerated("customMessageReceived", [newMessage]);
-      }
-
-    } else if (this.props.type === 'user'
-      && message.getReceiverType() === 'user'
-      && message.getSender().uid === this.props.item.uid) {
+    const triggerCustomMessageReceived = (message) => {
 
       if (!message.getReadAt()) {
         CometChat.markAsRead(message.getId().toString(), message.getSender().uid, message.getReceiverType());
@@ -475,19 +390,55 @@ class MessageList extends React.PureComponent {
 
         this.props.actionGenerated("customMessageReceived", [message]);
 
-      }else if (message.type === "extension_poll") {//customdata (poll extension) does not have metadata
+      } else {
+        if (message.type === enums.CUSTOM_TYPE_POLL) {//customdata (poll extension) does not have metadata
 
-        const newMessage = this.addMetadataToCustomData(message);
-        this.props.actionGenerated("customMessageReceived", [newMessage]);
-      } else if (message.type === enums.CUSTOM_TYPE_STICKER) {
+          const newMessage = this.addMetadataToCustomData(message);
+          this.props.actionGenerated("customMessageReceived", [newMessage]);
+        }
+      }
+
+    }
+
+    //new messages
+    if (this.props.type === 'group'
+    && message.getReceiverType() === 'group'
+    && message.getReceiverId() === this.props.item.guid) {
+
+      if (!message.getReadAt()) {
+        CometChat.markAsRead(message.getId().toString(), message.getReceiverId(), message.getReceiverType());
+      }
+      
+      if (message.hasOwnProperty("metadata")) {
 
         this.props.actionGenerated("customMessageReceived", [message]);
 
-      } else if (message.type === enums.CUSTOM_TYPE_POLL) {//customdata (poll extension) does not have metadata
+      } else {
 
-        const newMessage = this.addMetadataToCustomData(message);
-        this.props.actionGenerated("customMessageReceived", [newMessage]);
+        if (message.type === enums.CUSTOM_TYPE_POLL) {//customdata (poll extension) does not have metadata
+
+          const newMessage = this.addMetadataToCustomData(message);
+          this.props.actionGenerated("customMessageReceived", [newMessage]);
+        }
       }
+
+    } else if (this.props.type === 'user'
+    && message.getReceiverType() === 'user'
+    && message.getSender().uid === this.props.item.uid) {
+
+      console.log("inside 1st else if");
+
+      triggerCustomMessageReceived(message);
+
+    } else if (this.props.type === 'user'
+    && message.getReceiverType() === 'user'
+    && this.loggedInUser.uid === message.getSender().uid && message.getReceiverId() === this.props.item.uid
+    && (message.type === enums.CUSTOM_TYPE_DOCUMENT || message.type === enums.CUSTOM_TYPE_WHITEBOARD)) {
+
+      console.log("inside 2nd else if");
+
+      triggerCustomMessageReceived(message);
+
     }
 
   }
@@ -503,7 +454,6 @@ class MessageList extends React.PureComponent {
       resultOptions[option] = {
         text: options[option],
         count: 0,
-        voters: []
       }
     }
 
@@ -564,18 +514,6 @@ class MessageList extends React.PureComponent {
     }
   }
 
-  AddgroupUpdated = (key, message, group, options) => {
-    if (this.props.type === 'rooms' ) {
-
-      // if(!message.getReadAt()) {
-      //   CometChat.markAsRead(message.getId().toString(), message.getReceiverId(), message.getReceiverType());
-      // }
-      
-      this.props.actionGenerated("roomGroupUpdated", message, key, group, options);
-    }
-  }
-
-
   handleScroll = (e) => {
 
     const scrollTop = e.currentTarget.scrollTop;
@@ -591,36 +529,31 @@ class MessageList extends React.PureComponent {
     this.props.onItemClick(message, 'message');
   }
 
-  handlewpgroupsClick = (group) => {
-      this.setState({selectedGroup: this.state.grouplist});
-      this.props.onItemClick(group, 'wpgroup');
-  }
-
   getSenderMessageComponent = (message, key) => {
 
     let component;
-
+    
     if(message.hasOwnProperty("deletedAt")) {
       
-      component = (<DeletedMessageBubble theme={this.props.theme} key={key} message={message} messageOf="sender" />);
+      component = (<DeletedMessageBubble theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} messageOf="sender" />);
 
     } else {
 
       switch (message.type) {
         case CometChat.MESSAGE_TYPE.TEXT:
-          component = (message.text ? <SenderMessageBubble theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
+          component = (message.text ? <SenderMessageBubble loggedInUser={this.loggedInUser} theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
         break;
         case CometChat.MESSAGE_TYPE.IMAGE:
-          component = (message.data.url ? <SenderImageBubble theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
+          component = (message.data.url ? <SenderImageBubble loggedInUser={this.loggedInUser} theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
         break;
         case CometChat.MESSAGE_TYPE.FILE:
-          component = (message.data.attachments ? <SenderFileBubble theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
+          component = (message.data.attachments ? <SenderFileBubble loggedInUser={this.loggedInUser} theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
         break;
         case CometChat.MESSAGE_TYPE.VIDEO:
-          component = (message.data.url ? <SenderVideoBubble theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
+          component = (message.data.url ? <SenderVideoBubble loggedInUser={this.loggedInUser} theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
         break;
         case CometChat.MESSAGE_TYPE.AUDIO:
-          component = (message.data.url ? <SenderAudioBubble theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
+          component = (message.data.url ? <SenderAudioBubble loggedInUser={this.loggedInUser} theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
         break;
         default:
         break;
@@ -644,19 +577,19 @@ class MessageList extends React.PureComponent {
       switch (message.type) {
         case "message":
         case CometChat.MESSAGE_TYPE.TEXT:
-          component = (message.text ? <ReceiverMessageBubble theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
+          component = (message.text ? <ReceiverMessageBubble loggedInUser={this.loggedInUser} theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
         break;
         case CometChat.MESSAGE_TYPE.IMAGE:
-          component = (message.data.url ? <ReceiverImageBubble theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
+          component = (message.data.url ? <ReceiverImageBubble loggedInUser={this.loggedInUser} theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
         break;
         case CometChat.MESSAGE_TYPE.FILE:
-          component = (message.data.attachments ? <ReceiverFileBubble theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
+          component = (message.data.attachments ? <ReceiverFileBubble loggedInUser={this.loggedInUser} theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
         break;
         case CometChat.MESSAGE_TYPE.AUDIO:
-          component = (message.data.url ? <ReceiverAudioBubble theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
+          component = (message.data.url ? <ReceiverAudioBubble loggedInUser={this.loggedInUser} theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
         break;
         case CometChat.MESSAGE_TYPE.VIDEO:
-          component = (message.data.url ? <ReceiverVideoBubble theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
+          component = (message.data.url ? <ReceiverVideoBubble loggedInUser={this.loggedInUser} theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} /> : null);
         break;
         default:
         break;
@@ -673,14 +606,17 @@ class MessageList extends React.PureComponent {
     } else {
 
       switch (message.type) {
-		 case "extension_poll":
-          component = <SenderPollBubble theme={this.props.theme} key={key} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} />;
-          break;
         case enums.CUSTOM_TYPE_POLL:
-          component = <SenderPollBubble theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} actionGenerated={this.props.actionGenerated} />;
+          component = <SenderPollBubble loggedInUser={this.loggedInUser} theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} actionGenerated={this.props.actionGenerated} />;
           break;
         case enums.CUSTOM_TYPE_STICKER:
-          component = <SenderStickerBubble theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} actionGenerated={this.props.actionGenerated} />;
+          component = <SenderStickerBubble loggedInUser={this.loggedInUser} theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} actionGenerated={this.props.actionGenerated} />;
+          break;
+        case enums.CUSTOM_TYPE_DOCUMENT:
+          component = <SenderDocumentBubble loggedInUser={this.loggedInUser} theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} actionGenerated={this.props.actionGenerated} />;
+          break; 
+        case enums.CUSTOM_TYPE_WHITEBOARD:
+          component = <SenderWhiteboardBubble loggedInUser={this.loggedInUser} theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} actionGenerated={this.props.actionGenerated} />;
           break;
         default:
           break;
@@ -698,14 +634,17 @@ class MessageList extends React.PureComponent {
     } else {
 
       switch (message.type) {
-		case "extension_poll":
-          component = <ReceiverPollBubble user={this.loggedInUser} theme={this.props.theme} key={key} message={message} widgetsettings={this.props.widgetsettings} widgetconfig={this.props.widgetconfig} actionGenerated={this.props.actionGenerated} />;
-          break;
         case enums.CUSTOM_TYPE_POLL:
-          component = <ReceiverPollBubble user={this.loggedInUser} theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} actionGenerated={this.props.actionGenerated} />;
+          component = <ReceiverPollBubble loggedInUser={this.loggedInUser} theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} actionGenerated={this.props.actionGenerated} />;
           break;
         case enums.CUSTOM_TYPE_STICKER:
-          component = <ReceiverStickerBubble user={this.loggedInUser} theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} actionGenerated={this.props.actionGenerated} />;
+          component = <ReceiverStickerBubble loggedInUser={this.loggedInUser} theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} actionGenerated={this.props.actionGenerated} />;
+          break;
+        case enums.CUSTOM_TYPE_DOCUMENT:
+          component = <ReceiverDocumentBubble loggedInUser={this.loggedInUser} theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} actionGenerated={this.props.actionGenerated} />;
+          break;
+        case enums.CUSTOM_TYPE_WHITEBOARD:
+          component = <ReceiverWhiteboardBubble loggedInUser={this.loggedInUser} theme={this.props.theme} key={key} item={this.props.item} type={this.props.type} message={message} widgetsettings={this.props.widgetsettings} actionGenerated={this.props.actionGenerated} />;
           break;
         default:
           break;
@@ -717,71 +656,18 @@ class MessageList extends React.PureComponent {
 
   getCallMessageComponent = (message, key) => {
     return (
-      <CallMessage  message={message} key={key} theme={this.props.theme} loggedInUser={this.loggedInUser} />
+      <CallMessage message={message} key={key} theme={this.props.theme} loggedInUser={this.loggedInUser} />
     );
-  }
-
-  onAddUserRoomClick = ( group, options ) => {
-    addLoader();
-    CometChat.getGroup(group.table_id).then(
-      ccpro_group => {
-        console.log("Group details fetched successfully:", ccpro_group);
-        console.log(group.table_size);
-        console.log(ccpro_group.membersCount);
-        if( group.table_size > ccpro_group.membersCount ){
-          group.total_users = ccpro_group.membersCount;
-          this.GroupListManager = new GroupListManager();
-          this.GroupListManager.attachListeners(this.AddgroupUpdated( enums.GROUP_MEMBER_JOINED, '', group, options ));
-        }else{
-          group.total_users = ccpro_group.membersCount;
-          let groupObj = { ...group };
-          const newGroupObj = Object.assign({}, groupObj, {"scope":  CometChat.GROUP_MEMBER_SCOPE.PARTICIPANT});
-          let item = newGroupObj;
-          let type = 'group';
-          
-          this.props.actionGenerated("roomGroupUpdated", '', '', group, options);
-        }
-      },
-      error => {
-        console.log("Group details fetching failed with exception:", error);
-      }
-    );
-    console.log(group);
-    console.log(group.table_users.length);
-    
-    
-    
-  }
-
-  startChat = ( group, options ) => {
-    this.GroupListManager = new GroupListManager();
-    this.GroupListManager.attachListeners(this.showStartchat( enums.GROUP_MEMBER_JOINED, '', group, options ));
-  }
-
-  showStartchat = (key, message, group, options) => {
-    if (this.props.type === 'rooms' ) {
-      let groupObj = { ...group };
-      const newGroupObj = Object.assign({}, groupObj, {"scope":  CometChat.GROUP_MEMBER_SCOPE.PARTICIPANT});
-      let item = newGroupObj;
-      let type = 'group';
-
-      this.props.actionGenerated("itemClicked", item, '',type);
-    
-      // if(!message.getReadAt()) {
-      //   CometChat.markAsRead(message.getId().toString(), message.getReceiverId(), message.getReceiverType());
-      // }
-      
-      this.props.actionGenerated("showStartChat", message, key, group, options);
-    }
   }
 
   getActionMessageComponent = (message, key) => {
 
     let component = null;
+    //console.log("getActionMessageComponent message", message);
     if(message.message) {
 
       component = (
-        <div css={actionMessageStyle()} key={key}><p css={actionMessageTxtStyle()}>{message.message}</p></div>
+        <div css={actionMessageStyle()} className="message__action" key={key}><p css={actionMessageTxtStyle()}>{message.message}</p></div>
       );
 
       //if action messages are set to hide in config
@@ -813,7 +699,6 @@ class MessageList extends React.PureComponent {
         component = this.getCallMessageComponent(message, key);
       break;
       case "message":
-        
         if(this.loggedInUser.uid === message.sender.uid) {
           component = this.getSenderMessageComponent(message, key);
         } else {
@@ -835,13 +720,8 @@ class MessageList extends React.PureComponent {
   }
 
   render() {
-    let loading = null;
-    // if(this.state.loading) {
-    //   loading = (
-    //     <div css={listLoadingStyle(this.props)}>Loading...</div>
-    //   );
-    // }
-	let messageContainer = null;
+
+    let messageContainer = null;
     if (this.props.messages.length === 0) {
       messageContainer = (
         <div css={decoratorMessageStyle()} className="messages__decorator-message">
@@ -851,204 +731,33 @@ class MessageList extends React.PureComponent {
     }
 
     let cDate = null;
-    if( this.props.type === 'wpgroup' ){
-      let image = '';
-      
-      const messages = Object.values(this.props.item).map((group, key) => {
-        
-        if(!group.icon) {
-            const guid = group.guid;
-            const char = group.name.charAt(0).toUpperCase();
-    
-            group.icon = SvgAvatar.getAvatar(guid, char);
-          }
-          image = group.icon;
-          return(
-            <div css={chatListStyle(this.props)}>
-              <div css={listWrapperStyle()} ref={(el) => { this.messagesEnd = el; }} onScroll={this.handleScroll}>
-                <Avatar 
-                image={image} 
-                cornerRadius="18px" 
-                borderColor={this.props.theme.borderColor.primary}
-                borderWidth="1px" />
-                {/* <TableView 
-                theme={this.props.theme}
-                group={group}
-                selectedGroup={this.state.selectedGroup}
-                clickHandler={this.handlewpgroupsClick} /> */}
-                <div onClick={() => this.handlewpgroupsClick(group)}>{group.name}</div>
-              </div>
-            </div>
-          );
-      });
+    const messages = this.props.messages.map((message, key) => {
 
-      return (
-        <div css={chatListStyle(this.props)}>
-          <div css={listWrapperStyle()} ref={(el) => { this.messagesEnd = el; }} onScroll={this.handleScroll}>
-            {loading}
-            {messages}
-          </div>
-        </div>
-      );
-    }else if( this.props.type === 'rooms' ){
-     
-      let roomTableData = this.props.rooms.data;
-      let groupData = this.props.item;
-      let image = '';
-      let messages = '';
-      let users = '';
-      let users_html = '';
-      if( roomTableData == undefined || roomTableData == ""){
-        messages = '';
-      }else{
-        messages = Object.values(roomTableData).map((group, key) => {
-        
-        if(!group.table_image) {
-          const guid = group.joined_tableid;
-          const char = group.table_name.charAt(0).toUpperCase();
-  
-          group.table_image = SvgAvatar.getAvatar(guid, char);
-        }
-        image = group.table_image;
-        const imagee = (image);
-        if( group.table_users ){
-          
-        users_html = Object.values(group.table_users).map((user, key) => {
-          return(
-            <li key={key}>  
-              <img className="ccpro_table-user-avatar" src={user.avatar_url} alt="Vimarsh" />
-              <span className="ccpro_tooltip">{user.user_name} {user.last_name}</span>
-            </li>
-          )
-        });
+      let dateSeparator = null;
 
-        
+      const messageDate = (message.sentAt * 1000);
+      const messageSentDate = dateFormat(messageDate, "dd/mm/yyyy");
+      if (cDate !== messageSentDate) {
+        dateSeparator = (<div css={messageDateContainerStyle()} className="message__date"><span css={messageDateStyle(this.props)}>{messageSentDate}</span></div>);
       }
-      users = (
-          <div className={`ccpro_table-users ccpro_table-users-${group.table_size}`} key={key}>
-            <ul className="ccpro_table-users-list">
-              {users_html}
-              
-            </ul>
-          </div>
-        );
-        let joinTable = null;
-        console.log(this.state.checkUserJoinRoom);
-        console.log(group);
-        console.log(groupData);
-        if( this.state.checkUserJoinRoom ){
-          if( group.table_size > group.table_users.length ){
-            if( !groupData.joined_tableid && groupData.joined_tableid == this.state.checkUserJoinRoom ){
-            
-              joinTable = (
-                <button className="ccpro_btn" onClick={() => this.onAddUserRoomClick(group, this.loggedInUser)}>
-                  Join Table
-                </button>
-              );
-            
-            }else{
-  
-            }
-            
-          }else{
-            joinTable = (
-              <button className="tableIsFull">
-                Table is full
-              </button>
-            );
-          }
-          if( this.state.checkUserJoinRoom == groupData.joined_tableid ){
-            
-            
-            if( groupData.joined_tableid && groupData.joined_tableid == group.table_id ){
-            
-              joinTable = (
-                <button className="ccpro_btn" onClick={() => this.startChat(group, this.loggedInUser)}>
-                  Start Chat
-                </button>
-              );
-            }else{
-              
-            }
-          }else{
-           
-          }
-        }else if( !groupData.joined_tableid && !this.state.checkUserJoinRoom ){
-          if( group.table_size > group.table_users.length ){
-            joinTable = (
-              <button className="ccpro_btn" onClick={() => this.onAddUserRoomClick(group, this.loggedInUser)}>
-                Join Table
-              </button>
-            );
-          }else{
-            joinTable = (
-              <button className="tableIsFull">
-                Table is full
-              </button>
-            );
-          }
-          
-          // joinTable = (
-          //   <button className="ccpro_btn" onClick={() => this.onAddUserRoomClick(group, this.loggedInUser)}>
-          //     Join Table
-          //   </button>
-          // );
-        }else{
-          joinTable = null;
-        }
-        
-        return(
-          
-          <div className={`ccpro_group-table-block ccpro_img-block${group.table_size}`} key={group.table_id}>
-            <div className="ccpro_img-block"><span className="details" dangerouslySetInnerHTML={{__html: group.table_image}} /></div> 
-            <div className="ccpro_table-name">{group.table_name}</div> 
-            {joinTable}
-            {users}
-          </div>
-        );
-      });
-    }
+      cDate = messageSentDate;
 
       return (
-        <div css={chatListStyle(this.props)}>
-          <div className="ccpro_group-content" css={listWrapperStyle()} ref={(el) => { this.messagesEnd = el; }} onScroll={this.handleScroll}>
-            {loading}
-            {messages}
-          </div>
+        <React.Fragment key={key}>
+          {dateSeparator}
+          {this.getComponent(message, key)}
+        </React.Fragment>
+      )
+    });
+
+    return (
+      <div className="chat__list" css={chatListStyle(this.props)}>
+        {messageContainer}
+        <div className="list__wrapper" css={listWrapperStyle()} ref={(el) => { this.messagesEnd = el; }} onScroll={this.handleScroll}>
+          {messages}
         </div>
-      );
-    }else{
-      let cDate = null;
-      const messages = this.props.messages.map((message, key) => {
-       
-console.log(new Date(message.sentAt * 1000).toLocaleString());
-        let dateSeparator = null;
-        const messageSentDate = new Date(message.sentAt * 1000).toLocaleDateString();
-        console.log(messageSentDate);
-        if (cDate !== messageSentDate) {
-          dateSeparator = (<div css={messageDateContainerStyle()} className="message__date"><span css={messageDateStyle(this.props)}>{messageSentDate}</span></div>);
-        }
-        cDate = messageSentDate;
-
-        return (
-          <React.Fragment key={key}>
-            {dateSeparator}
-            {this.getComponent(message, key)}
-          </React.Fragment>
-        )
-      });
-
-      return (
-        <div className="chat__list" css={chatListStyle(this.props)}>
-          {messageContainer}
-          <div className="list__wrapper" css={listWrapperStyle()} ref={(el) => { this.messagesEnd = el; }} onScroll={this.handleScroll}>
-            {messages}
-          </div>
-        </div>
-      );
-    }
-    
-
+      </div>
+    );
   }
 
   componentWillUnmount() {

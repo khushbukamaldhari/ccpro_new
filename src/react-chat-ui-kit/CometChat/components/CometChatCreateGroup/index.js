@@ -17,10 +17,9 @@ import {
     tableErrorStyle,
     inputStyle,
     tableFootStyle,
-    btnContainerStyle,
 } from "./style";
 
-import closeIcon from "./resources/clear.svg";
+import closeIcon from "./resources/close.png";
 
 class CometChatCreateGroup extends React.Component {
 
@@ -173,11 +172,11 @@ class CometChatCreateGroup extends React.Component {
                                 <tr>
                                     <td>
                                         <select
-                                            css={inputStyle(this.props)}
-                                            className="grouptype" 
-                                            onChange={this.typeChangeHandler}
-                                            value={this.state.type}
-                                            tabIndex="2">
+                                        css={inputStyle(this.props)}
+                                        className="grouptype" 
+                                        onChange={this.typeChangeHandler}
+                                        value={this.state.type}
+                                        tabIndex="2">
                                             <option value="">Select group type</option>
                                             <option value="public">Public</option>
                                             <option value="private">Private</option>
@@ -193,37 +192,6 @@ class CometChatCreateGroup extends React.Component {
                                 </tr>
                             </tfoot>
                         </table>
-
-
-                        {/* <h4 css={modalTitleStyle()}>Create Group</h4>
-                        <span css={modalErrorStyle()}>{this.state.error}</span>
-                        <div css={inputWrapperStyle()}>
-                            <input 
-                            autoComplete="off" 
-                            css={inputStyle(this.props)}
-                            placeholder="Enter group name" 
-                            type="text"
-                            tabIndex="1"
-                            onChange={this.nameChangeHandler}
-                            value={this.state.name} />
-                        </div>
-
-                        <div css={inputWrapperStyle()}>
-                            <select 
-                            css={inputStyle(this.props)}
-                            onChange={this.typeChangeHandler}
-                            value={this.state.type}
-                            tabIndex="2">
-                            <option value="">Select group type</option>
-                                <option value="public">Public</option>
-                                <option value="private">Private</option>
-                                <option value="protected">Password Protected</option>
-                            </select>
-                        </div>
-                        {password}
-                        <div css={btnContainerStyle(this.props)}>
-                            <button tabIndex="4" onClick={this.createGroup}>Create</button>
-                        </div> */}
                     </div>
                 </div>
             </React.Fragment>

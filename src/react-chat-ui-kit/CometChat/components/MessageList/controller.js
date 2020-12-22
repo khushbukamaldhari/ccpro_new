@@ -1,6 +1,7 @@
 import { CometChat } from "@cometchat-pro/chat";
 
 import * as enums from '../../util/enums.js';
+import MessageFilter from "./MessageFilter";
 
 export class MessageListManager {
 
@@ -8,38 +9,60 @@ export class MessageListManager {
     type = "";
     parentMessageId = null;
     messageRequest = null;
+    limit = 30;
+    
     msgListenerId = "message_" + new Date().getTime();
     groupListenerId = "group_" + new Date().getTime();
     callListenerId = "call_" + new Date().getTime(); 
 
-    constructor(item, type, parentMessageId) {
-console.log(item)
+    constructor(widgetSettings, item, type, parentMessageId) {
+
         this.item = item;
         this.type = type;
         this.parentMessageId = parentMessageId;
 
+        const messageFilterManager = new MessageFilter();
+        const categories = messageFilterManager.getCategories(widgetSettings);
+        const types = messageFilterManager.getTypes(widgetSettings);
+
         if (type === "user") {
-            if(this.parentMessageId) {
-                this.messageRequest = new CometChat.MessagesRequestBuilder().setUID(item.uid).setParentMessageId(this.parentMessageId).setLimit(30).build();
-                console.log(this.messageRequest);
-            } else {
-                this.messageRequest = new CometChat.MessagesRequestBuilder().setUID(item.uid).hideReplies(true).setLimit(30).build();
-                console.log(this.messageRequest);
-            }
-        }
-        else if (type === "group") {
 
             if(this.parentMessageId) {
-                this.messageRequest = new CometChat.MessagesRequestBuilder().setGUID(item.guid).setParentMessageId(this.parentMessageId).setLimit(30).build();
+                this.messageRequest = new CometChat.MessagesRequestBuilder()
+                                            .setUID(item.uid)
+                                            .setParentMessageId(this.parentMessageId)
+                                            .setCategories(categories)
+                                            .setTypes(types)
+                                            .setLimit(this.limit)
+                                            .build();
             } else {
-                this.messageRequest = new CometChat.MessagesRequestBuilder().setGUID(item.guid).hideReplies(true).setLimit(30).build();
+                this.messageRequest = new CometChat.MessagesRequestBuilder()
+                                            .setUID(item.uid)
+                                            .setCategories(categories)
+                                            .setTypes(types)
+                                            .hideReplies(true)
+                                            .setLimit(this.limit)
+                                            .build();
             }
-        } else if (type === "rooms") {
+
+        } else if (type === "group") {
 
             if(this.parentMessageId) {
-                this.messageRequest = new CometChat.MessagesRequestBuilder().setGUID(item.guid).setParentMessageId(this.parentMessageId).setLimit(30).build();
+                this.messageRequest = new CometChat.MessagesRequestBuilder()
+                                            .setGUID(item.guid)
+                                            .setParentMessageId(this.parentMessageId)
+                                            .setCategories(categories)
+                                            .setTypes(types)
+                                            .setLimit(this.limit)
+                                            .build();
             } else {
-                this.messageRequest = new CometChat.MessagesRequestBuilder().setGUID(item.guid).hideReplies(true).setLimit(30).build();
+                this.messageRequest = new CometChat.MessagesRequestBuilder()
+                                            .setGUID(item.guid)
+                                            .setCategories(categories)
+                                            .setTypes(types)
+                                            .hideReplies(true)
+                                            .setLimit(this.limit)
+                                            .build();
             }
         }
     }

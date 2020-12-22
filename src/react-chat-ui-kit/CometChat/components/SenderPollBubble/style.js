@@ -36,7 +36,7 @@ export const messageTxtWrapperStyle = (props) => {
         borderRadius: "12px",
         backgroundColor: `${props.theme.backgroundColor.blue}`,
         color: `${props.theme.color.white}`,
-        padding: "8px 12px",
+        padding: "8px 16px",
         alignSelf: "flex-end",
         width: "auto",
     }
@@ -80,7 +80,6 @@ export const pollTotalStyle = () => {
         alignSelf: "flex-end"
     }
 }
-
 
 export const pollPercentStyle = (props, width) => {
 
@@ -132,5 +131,16 @@ export const messageInfoWrapperStyle = () => {
 
     return {
         alignSelf: "flex-end",
+    }
+}
+
+export const messageReactionsWrapperStyle = () => {
+
+    return {
+        display: "inline-flex",
+        alignSelf: "flex-end",
+        width: "100%",
+        flexWrap: "wrap",
+        justifyContent: "flex-end",
     }
 }

@@ -1,4 +1,3 @@
-import React from "react";
 import { useCallback } from "react";
 
 /** @jsx jsx */
@@ -15,8 +14,6 @@ const CallMessage = (props) => {
         const call = props.message;
         const loggedInUser = props.loggedInUser;
 
-        const messageSentFullDate = new Date(props.message.sentAt * 1000).toLocaleString();
-        console.log(messageSentFullDate);
         let message = null;
         switch (call.status) {
     
@@ -26,26 +23,26 @@ const CallMessage = (props) => {
                 if (call.type === "audio") {
 
                     if (call.receiverType === "user") {
-                        message = (call.callInitiator.uid === loggedInUser.uid) ? "Outgoing audio call " + messageSentFullDate  : "Incoming audio call " + messageSentFullDate ;
+                        message = (call.callInitiator.uid === loggedInUser.uid) ? "Outgoing audio call" : "Incoming audio call";
                     } else if (call.receiverType === "group") {
 
                         if (call.action === CometChat.CALL_STATUS.INITIATED) {
-                            message = (call.callInitiator.uid === loggedInUser.uid) ? "Outgoing audio call " + messageSentFullDate  : "Incoming audio call " + messageSentFullDate ;
+                            message = (call.callInitiator.uid === loggedInUser.uid) ? "Outgoing audio call" : "Incoming audio call";
                         } else if (call.action === CometChat.CALL_STATUS.REJECTED) {
-                            message = (call.sender.uid === loggedInUser.uid) ? "Call rejected" : `${call.sender.name} rejected call ${ messageSentFullDate }`;
+                            message = (call.sender.uid === loggedInUser.uid) ? "Call rejected" : `${call.sender.name} rejected call`;
                         }
                     }
                     
                 } else if (call.type === "video") {
 
                     if (call.receiverType === "user") {
-                        message = (call.callInitiator.uid === loggedInUser.uid) ? "Outgoing video call " + messageSentFullDate : "Incoming video call " + messageSentFullDate ;
+                        message = (call.callInitiator.uid === loggedInUser.uid) ? "Outgoing video call" : "Incoming video call";
                     } else if (call.receiverType === "group") {
 
                         if (call.action === CometChat.CALL_STATUS.INITIATED) {
-                            message = (call.callInitiator.uid === loggedInUser.uid) ? "Outgoing video call " + messageSentFullDate  : "Incoming video call " + messageSentFullDate ;
+                            message = (call.callInitiator.uid === loggedInUser.uid) ? "Outgoing video call" : "Incoming video call";
                         } else if (call.action === CometChat.CALL_STATUS.REJECTED) {
-                            message = (call.sender.uid === loggedInUser.uid) ? "Call rejected" : `${call.sender.name} rejected call ${ messageSentFullDate }`;
+                            message = (call.sender.uid === loggedInUser.uid) ? "Call rejected" : `${call.sender.name} rejected call`;
                         }
                     }
                 }
@@ -58,11 +55,11 @@ const CallMessage = (props) => {
                 } else if (call.receiverType === "group") {
 
                     if (call.action === CometChat.CALL_STATUS.ONGOING) {
-                        message = (call.sender.uid === loggedInUser.uid) ? "Call accepted" : `${call.sender.name} joined ${ messageSentFullDate }`;
+                        message = (call.sender.uid === loggedInUser.uid) ? "Call accepted" : `${call.sender.name} joined`;
                     } else if (call.action === CometChat.CALL_STATUS.REJECTED) {
-                        message = (call.sender.uid === loggedInUser.uid) ? "Call rejected" : `${call.sender.name} rejected call ${ messageSentFullDate }`;
+                        message = (call.sender.uid === loggedInUser.uid) ? "Call rejected" : `${call.sender.name} rejected call`;
                     } else if(call.action === "left") {
-                        message = (call.sender.uid === loggedInUser.uid) ? "You left the call" : `${call.sender.name} left the call ${ messageSentFullDate }`;
+                        message = (call.sender.uid === loggedInUser.uid) ? "You left the call" : `${call.sender.name} left the call`;
                     }
                 }
 
@@ -72,24 +69,24 @@ const CallMessage = (props) => {
 
                 message = "Call unanswered";
                 if (call.type === "audio" && (call.receiverType === "user" || call.receiverType === "group")) {
-                    message = (call.callInitiator.uid === loggedInUser.uid) ? "Unanswered audio call" : "Missed audio call " + messageSentFullDate;
+                    message = (call.callInitiator.uid === loggedInUser.uid) ? "Unanswered audio call" : "Missed audio call";
                 } else if (call.type === "video" && (call.receiverType === "user" || call.receiverType === "group")) {
-                    message = (call.callInitiator.uid === loggedInUser.uid) ? "Unanswered video call" : "Missed video call " + messageSentFullDate;
+                    message = (call.callInitiator.uid === loggedInUser.uid) ? "Unanswered video call" : "Missed video call";
                 }
                 break;
             }
             case CometChat.CALL_STATUS.REJECTED: {
-                message = "Call rejected " + messageSentFullDate;
+                message = "Call rejected";
                 break;
             }
             case CometChat.CALL_STATUS.ENDED:
-                message = "Call ended " + messageSentFullDate;
+                message = "Call ended";
                 break;
             case CometChat.CALL_STATUS.CANCELLED:
-                message = "Call cancelled " + messageSentFullDate;
+                message = "Call cancelled"
                 break;
             case CometChat.CALL_STATUS.BUSY:
-                message = "Call busy " + messageSentFullDate;
+                message = "Call busy";
                 break;
             default:
                 break;

@@ -86,7 +86,7 @@ export const messageTxtWrapperStyle = (props) => {
         flexDirection: "column",
         borderRadius: "12px",
         backgroundColor: `${props.theme.backgroundColor.secondary}`,
-        padding: "8px 12px",
+        padding: "8px 16px",
         alignSelf: "flex-start",
         width: "100%",
     }
@@ -154,7 +154,7 @@ export const answerWrapperStyle = (props, optionData, img) => {
     let bgImg = {};
     let txtPadding = "6px 12px";
     let countPadding = txtPadding;
-    if (optionData.hasOwnProperty("voters") && optionData.voters.hasOwnProperty(props.user.uid)) {
+    if (optionData.hasOwnProperty("voters") && optionData.voters.hasOwnProperty(props.loggedInUser.uid)) {
 
         bgImg = {
             background: `url(${img}) no-repeat 10px center`,
@@ -198,14 +198,13 @@ export const messageInfoWrapperStyle = () => {
     }
 }
 
-export const messageTimestampStyle = (props) => {
+export const messageReactionsWrapperStyle = () => {
 
     return {
-        display: "inline-block",
-        fontSize: "11px",
-        fontWeight: "500",
-        lineHeight: "12px",
-        textTransform: "uppercase",
-        color: `${props.theme.color.helpText}`,
+        display: "inline-flex",
+        alignSelf: "flex-start",
+        width: "100%",
+        flexWrap: "wrap",
+        justifyContent: "flex-start",
     }
 }

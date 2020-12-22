@@ -13,11 +13,12 @@ import {
   groupButtonStyle
 } from "./style";
 
-import replyIcon from "./resources/reply.svg";
-import deleteIcon from "./resources/delete-message.svg";
-import editIcon from "./resources/edit.svg";
+import replyIcon from "./resources/startthread.png";
+import deleteIcon from "./resources/deletemessage.png";
+import editIcon from "./resources/edit.png";
+import reactIcon from "./resources/add-reaction.png";
 
-class Tooltip extends React.Component {
+class Tooltip extends React.PureComponent {
 
   constructor(props) {
     super(props);
@@ -39,6 +40,24 @@ class Tooltip extends React.Component {
   }
 
   render() {
+
+    let reactToMessage = (
+      <li css={actionGroupStyle(this.props)} className="action__group">
+        <button
+          type="button"
+          onMouseEnter={event => this.toggleTooltip(event, true)}
+          onMouseLeave={event => this.toggleTooltip(event, false)}
+          css={groupButtonStyle(reactIcon)}
+          className="group__button button__reacttomessage"
+          data-title="Add reaction"
+          onClick={() => this.props.actionGenerated("reactToMessage", this.props.message)}></button>
+      </li>
+    );
+
+    //if message reactions are disabled in chat widget
+    if (validateWidgetSettings(this.props.widgetsettings, "allow_message_reactions") === false) {
+      reactToMessage = null;
+    }
     
     let threadedChats = (
       <li css={actionGroupStyle(this.props)} className="action__group">
@@ -56,7 +75,6 @@ class Tooltip extends React.Component {
     //if threaded messages are disabled in chat widget
     if (validateWidgetSettings(this.props.widgetconfig, "threaded-chats") === false 
       || validateWidgetSettings(this.props.widgetsettings, "enable_threaded_replies") === false
-      || this.props.message.category === "custom"
       || this.props.message.parentMessageId) {
       threadedChats = null;
     }
@@ -102,13 +120,14 @@ class Tooltip extends React.Component {
 
     let tooltip = (
       <ul css={messageActionStyle(this.props)} className="message__actions">
+        {reactToMessage}
         {threadedChats}
         {editMessage}
         {deleteMessage}
       </ul>
     );
 
-    if (threadedChats === null && deleteMessage === null && editMessage === null) {
+    if (threadedChats === null && deleteMessage === null && editMessage === null && reactToMessage === null) {
       tooltip = null;
     }
 

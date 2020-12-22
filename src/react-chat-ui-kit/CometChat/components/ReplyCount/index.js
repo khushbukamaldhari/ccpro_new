@@ -1,7 +1,7 @@
-import React from "react";
-
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
+
+import { validateWidgetSettings } from "../../util/common";
 
 import { replyCountStyle } from "./style";
 
@@ -16,18 +16,14 @@ const replycount = (props) => {
         replies = null;
     }
 
-    if(props.hasOwnProperty("widgetconfig") 
-    && props.widgetconfig
-    && props.widgetconfig.hasOwnProperty("threaded-chats")
-    && props.widgetconfig["threaded-chats"] === false) {
+
+    //if threadedchats are disabled in chat widget
+    if (validateWidgetSettings(props.widgetconfig, "threaded-chats") === false) {
         replies = null;
     }
 
-    if(props.hasOwnProperty("widgetsettings") 
-    && props.widgetsettings
-    && props.widgetsettings.hasOwnProperty("main")
-    && props.widgetsettings.main.hasOwnProperty("enable_threaded_replies")
-    && props.widgetsettings.main["enable_threaded_replies"] === false) {
+    //if threadedchats are disabled in chat widget
+    if (validateWidgetSettings(props.widgetsettings, "enable_threaded_replies") === false) {
         replies = null;
     }
 

@@ -38,15 +38,6 @@ export const itemDetailStyle = () => {
     }
 }
 
-export const itemRowStyle = () => {
-
-    return {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "baseline",
-    }
-}
-
 export const itemNameStyle = () => { 
     
     return {
@@ -67,25 +58,3 @@ export const itemDescStyle = (theme) => {
     }
 };
 
-export const itemLastMsgStyle = (props) => {
-
-    return {
-        margin: "0",
-        fontSize: "13px",
-        width: "calc(100% - 50px)",
-        overflow: "hidden",
-        textOverflow: "ellipsis",
-        whiteSpace: "nowrap",
-        lineHeight: "20px",
-        color: `${props.theme.color.helpText}`,
-    }
-}
-
-export const itemLastMsgTimeStyle = (props) => {
-
-    return {
-        fontSize: "11px",
-        textTransform: "uppercase",
-        color: `${props.theme.color.helpText}`,
-    }
-}

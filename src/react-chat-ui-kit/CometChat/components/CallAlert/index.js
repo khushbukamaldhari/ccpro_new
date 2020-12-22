@@ -201,6 +201,7 @@ class CallAlert extends React.PureComponent {
                 </div>
             );
         }
+        
         return callScreen;
     }
 }

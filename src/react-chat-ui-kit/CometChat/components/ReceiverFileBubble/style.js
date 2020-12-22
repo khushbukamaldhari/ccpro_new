@@ -36,24 +36,16 @@ export const messageThumbnailStyle = () => {
         height: "36px",
         margin: "10px 5px",
         float: "left",
+        flexShrink: "0",
     }
 }
 
-export const messageDetailStyle = (name) => {
-
-    const topPos = (name) ? { top: "-15px" } : { top: "-30px" };
+export const messageDetailStyle = () => {
 
     return {
         flex: "1 1",
         display: "flex",
         flexDirection: "column",
-        position: "relative",
-        ':hover': {
-            'ul:first-of-type': {
-                display: "inline-flex",
-                ...topPos
-            }
-        }
     }
 }
 
@@ -94,7 +86,7 @@ export const messageFileWrapperStyle = (props) => {
         borderRadius: "12px",
         color: `${props.theme.color.secondary}`,
         backgroundColor: `${props.theme.backgroundColor.secondary}`,
-        padding: "8px 12px",
+        padding: "8px 16px",
         alignSelf: "flex-start",
         width: "auto",
         "> a": {
@@ -104,12 +96,18 @@ export const messageFileWrapperStyle = (props) => {
             color: `${props.theme.color.primary}`,
             width: "auto",
             fontSize: "14px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
             "&:visited, &:active, &:hover": {
                 color: `${props.theme.color.primary}`,
                 textDecoration: "none",
             },
             "img": {
-                backgroundColor: `${props.theme.backgroundColor.white}`
+                marginRight: "8px",
+            },
+            "label": {
+                cursor: "pointer"
             }
         }
     }
@@ -123,14 +121,13 @@ export const messageInfoWrapperStyle = () => {
     }
 }
 
-export const messageTimestampStyle = (props) => {
+export const messageReactionsWrapperStyle = () => {
 
     return {
-        display: "inline-block",
-        fontSize: "11px",
-        fontWeight: "500",
-        lineHeight: "12px",
-        textTransform: "uppercase",
-        color: `${props.theme.color.helpText}`,
+        display: "inline-flex",
+        alignSelf: "flex-start",
+        width: "100%",
+        flexWrap: "wrap",
+        justifyContent: "flex-start",
     }
 }

@@ -1,5 +1,3 @@
-import React from "react";
-
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 
@@ -16,7 +14,7 @@ import {
     actionStyle
 } from "./style";
 
-import unban from "./resources/block.svg";
+import unban from "./resources/block.png";
 
 const memberview = (props) => {
 

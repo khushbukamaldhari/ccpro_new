@@ -45,7 +45,7 @@ export const unifiedSidebarStyle = (state, theme) => {
         display: "flex",
         flexDirection: "column",
         "> .contacts, .chats, .groups": {
-            height: "calc(100% - 50px)",
+            height: "calc(100% - 40px)",
         },
         [mq[0]]: {
             position: "absolute!important",
@@ -79,26 +79,6 @@ export const unifiedMainStyle = (state) => {
         }
     }
 }
-
-export const unifiedWPMainStyle = (state) => {
-
-    const secondaryView = (state.threadmessageview || state.detailview) ? {
-        width: "calc(100% - 680px)"
-    } : {};
-
-    const mq = [`@media (min-width : 320px) and (max-width: 767px)`];
-
-    return {
-        width: "100%",
-        height: "100%",
-        order: "2",
-        ...secondaryView,
-        [mq[0]]: {
-            width: "100%!important",
-        }
-    }
-}
-
 
 export const unifiedSecondaryStyle = (theme) => {
     

@@ -6,7 +6,6 @@ import { jsx } from '@emotion/core'
 import { CometChat } from "@cometchat-pro/chat";
 
 import MemberView from "../MemberView";
-import InviteView from "../InviteView";
 import Backdrop from '../Backdrop';
 
 import GroupDetailContext from '../CometChatGroupDetail/context';
@@ -22,8 +21,7 @@ import {
     actionColumnStyle
 } from "./style";
 
-import clearIcon from "./resources/clear.svg";
-import { COMETCHAT_CONSTANTS, COMETCHAT_VARS } from "../../../../consts";
+import clearIcon from "./resources/close.png";
 
 class CometChatViewMembers extends React.Component {
 
@@ -100,61 +98,23 @@ class CometChatViewMembers extends React.Component {
             console.log("updateGroupMemberScope failed with error: ", error);
         });
     }
-    
-    inviteUserPopup = () => {
-        alert("zsfsdaf");
-    }
 
     render() {
-        let groupMembers = '';
+
         const group = this.context;
-        console.log(this.context);
-        let inviteMembers = '';
-        if( COMETCHAT_VARS.CHAT_MODE_NBR == COMETCHAT_CONSTANTS.MODE ){
-            const membersList = [...group.memberlist];
-            console.log(membersList);
-            groupMembers = membersList.map((member, key) => {
-                return (<MemberView 
-                    theme={this.props.theme}
-                    key={key} 
-                    member={member}
-                    item={this.props.item}
-                    widgetsettings={this.props.widgetsettings}
-                    actionGenerated={this.updateMembers} />);
-            });
-        }else{
-            const membersList = [...group.item.table_users];
-            console.log(membersList);
-            groupMembers = membersList.map((member, key) => {
-                
-                member.name = member.user_name + " " + member.last_name;
-                member.avatar = member.avatar_url;
-                return (<MemberView 
-                    theme={this.props.theme}
-                    key={key} 
-                    member={member}
-                    item={this.props.item}
-                    widgetsettings={this.props.widgetsettings}
-                    actionGenerated={this.updateMembers} />);
-            });
-        }
+
+        const membersList = [...group.memberlist];
+
+        const groupMembers = membersList.map((member, key) => {
         
-
-        inviteMembers = (
-            <InviteView 
-            theme={this.props.theme}
-            // key={key} 
-            // member={member}
-            // item={this.props.item}
-            widgetsettings={this.props.widgetsettings}
-            // actionGenerated={this.updateMembers} 
-            />
-        );
-
-        // const wrapperClassName = classNames({
-        //     "modal__viewmembers": true,
-        //     "modal--show": this.props.open
-        // });
+            return (<MemberView 
+                theme={this.props.theme}
+                key={key} 
+                member={member}
+                item={this.props.item}
+                widgetsettings={this.props.widgetsettings}
+                actionGenerated={this.updateMembers} />);
+        });
 
         let editAccess = null;
         if(this.props.item.scope !== CometChat.GROUP_MEMBER_SCOPE.PARTICIPANT) {
@@ -188,16 +148,12 @@ class CometChatViewMembers extends React.Component {
                             <thead> 
                                 <tr>
                                     <th className="name">Name</th>
-                                     {/* <th css={scopeColumnStyle()}>Scope</th> */}
+                                    <th css={scopeColumnStyle()} className="scope">Scope</th>
                                     {editAccess}
                                 </tr>
                             </thead>
                             <tbody css={tableBodyStyle()} onScroll={this.handleScroll}>{groupMembers}</tbody>
                         </table>
-                        {/* <div onClick={this.inviteUserPopup}>
-                            <caption css={tableCaptionStyle()}>Invite User</caption>
-                            {inviteMembers}
-                        </div>   */}
                     </div>
                 </div>
             </React.Fragment>
