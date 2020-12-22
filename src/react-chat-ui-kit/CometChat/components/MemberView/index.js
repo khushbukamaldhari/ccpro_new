@@ -22,12 +22,11 @@ import {
     scopeSelectionStyle
 } from "./style";
 
-import scopeIcon from "./resources/create.svg";
-import doneIcon from "./resources/done.svg";
-import clearIcon from "./resources/clear.svg";
-import banIcon from "./resources/block.svg";
-import kickIcon from "./resources/delete.svg";
-import { COMETCHAT_CONSTANTS, COMETCHAT_VARS } from "../../../../consts";
+import scopeIcon from "./resources/edit.png";
+import doneIcon from "./resources/done.png";
+import clearIcon from "./resources/close.png";
+import banIcon from "./resources/block.png";
+import kickIcon from "./resources/delete.png";
 
 class MemberView extends React.Component {
 
@@ -91,7 +90,7 @@ class MemberView extends React.Component {
         const group = this.context;
 
         let editClassName = "";
-        
+    
         let name = this.props.member.name;
         let scope = (<span css={roleStyle()}>{this.roles[this.props.member.scope]}</span>);
         let changescope = null;
@@ -219,11 +218,6 @@ class MemberView extends React.Component {
             borderColor={this.props.theme.color.darkSecondary}
             borderWidth="1px" />
         );
-        if( COMETCHAT_CONSTANTS.MODE == COMETCHAT_VARS.CHAT_MODE_NBR ){
-
-        }else{
-            changescope = '';
-        }
         
         return (
             <tr css={tableRowStyle(this.props)}>
@@ -231,7 +225,6 @@ class MemberView extends React.Component {
                 onMouseEnter={event => this.toggleTooltip(event, true)}
                 onMouseLeave={event => this.toggleTooltip(event, false)}>
                     <div css={avatarStyle(editClassName)} className="thumbnail">
-
                         <Avatar 
                         image={this.props.member.avatar} 
                         cornerRadius="18px" 
@@ -241,7 +234,7 @@ class MemberView extends React.Component {
                     </div>
                     <div css={nameStyle(editClassName)} className="name">{name}</div>
                 </td>
-                 {/* <td css={scopeStyle()}>{changescope}</td> */}
+                <td css={scopeStyle()} className="scope">{changescope}</td>
                 {editAccess}
             </tr>
         );

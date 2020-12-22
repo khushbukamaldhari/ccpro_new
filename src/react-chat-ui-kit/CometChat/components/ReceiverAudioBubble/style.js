@@ -46,12 +46,6 @@ export const messageDetailStyle = () => {
         flex: "1 1",
         display: "flex",
         flexDirection: "column",
-        position: "relative",
-        ':hover': {
-            'ul:first-of-type': {
-                display: "inline-flex"
-            }
-        }
     }
 }
 
@@ -107,14 +101,13 @@ export const messageInfoWrapperStyle = () => {
     }
 }
 
-export const messageTimestampStyle = (props) => {
+export const messageReactionsWrapperStyle = () => {
 
     return {
-        display: "inline-block",
-        fontSize: "11px",
-        fontWeight: "500",
-        lineHeight: "12px",
-        textTransform: "uppercase",
-        color: `${props.theme.color.helpText}`,
+        display: "inline-flex",
+        alignSelf: "flex-start",
+        width: "100%",
+        flexWrap: "wrap",
+        justifyContent: "flex-start",
     }
 }

@@ -32,8 +32,7 @@ import {
     itemLinkStyle
 } from "./style";
 
-import navigateIcon from "./resources/navigate_before.svg";
-import { COMETCHAT_CONSTANTS, COMETCHAT_VARS } from '../../../../consts';
+import navigateIcon from "./resources/navigate.png";
 
 class CometChatGroupDetail extends React.Component {
 
@@ -568,7 +567,7 @@ class CometChatGroupDetail extends React.Component {
                     </div>
                     <div css={detailPaneStyle()} className="detailpane__section">
                         {members}
-                       {/* {options} */}
+                        {options}
                         {sharedmediaView}
                     </div>
                     {viewMembers}

@@ -105,51 +105,6 @@ export const iconWrapperStyle = () => {
     }
 }
 
-export const callScreenIcon = (img) => {
-
-    return {
-        display: "block !important",
-        width: "70px !important",
-        height: "70px !important",
-        cursor: "pointer !important",
-        background: `url(${img})`,
-        backgroundPositionX: "0%",
-        backgroundPositionY: "0%",
-        backgroundColor: "#4d4c4f !important",
-        backgroundSize: "35px",
-        backgroundRepeat: "no-repeat",
-        borderRadius: "50px",
-        backgroundPosition: "center",
-        position: "absolute",
-        zIndex: "1000",
-        bottom: "48px",
-        left: "30px",
-        margin: "auto"
-    }
-}
-export const callScreenIconRemove = (img) => {
-
-    return {
-        display: "block !important",
-        width: "70px !important",
-        height: "70px !important",
-        cursor: "pointer !important",
-        background: `url(${img})`,
-        backgroundPositionX: "0%",
-        backgroundPositionY: "0%",
-        backgroundColor: "#4d4c4f !important",
-        backgroundSize: "35px",
-        backgroundRepeat: "no-repeat",
-        borderRadius: "50px",
-        backgroundPosition: "center",
-        position: "absolute",
-        zIndex: "1000",
-        bottom: "48px",
-        left: "30px",
-        margin: "auto"
-    }
-}
-
 export const iconStyle = (img, callAction) => {
 
     const bgColor = (callAction) ? "#008000" : "#ff3b30";
@@ -177,22 +132,5 @@ export const errorContainerStyle = () => {
         width: "100%",
         height: "10%",
         backgroundColor: "#333",
-    }
-}
-export const chatOptionStyle = (img) => {
-
-    return {
-        display: "inline-block",
-        width: "20px",
-        height: "20px",
-        margin: "0 10px",
-        cursor: "pointer",
-        background: `url(${img}) center center no-repeat`,
-        '&:first-of-type': {
-            marginLeft: 0,
-        },
-        '&:last-of-type': {
-            marginRight: 0,
-        }
     }
 }

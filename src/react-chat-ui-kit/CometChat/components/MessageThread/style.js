@@ -77,7 +77,7 @@ export const headerCloseStyle = (img) => {
     }
 }
 
-export const messageContainerStyle = () => {
+export const messageContainerStyle = (event) => {
 
     return {
         display: "flex",
@@ -90,103 +90,42 @@ export const messageContainerStyle = () => {
         zIndex: "100",
         minHeight: "calc(100% - 68px)",
         order: "2",
-        ".css-1z1zpa": {
+        ".chat__list": {
             minHeight: "250px",
-            ".css-1ridola": {
+            ".list__wrapper": {
                 "::-webkit-scrollbar": {
                     display: "none"
-                }
-            },
-            " div:hover": {
-                "ul.css-10hykrq": {
-                    display: "none"
                 },
-                "ul.css-hwrlsc": {
-                    display: "none"
-                },
+                scrollbarWidth: "none"
             }
-        }
+        },
     }
 }
 
-export const parentMessageStyle = () => {
+export const parentMessageStyle = (message) => {
+
+    const alignment = (message.messageFrom === "sender") ? {
+        justifyContent: "flex-end",
+    } : {
+        justifyContent: "flex-start",
+    };
 
     return {
         padding: "14px 16px",
-    }
-}
-
-export const parentMessageContainerStyle = (message, props) => {
-
-    const alignment = (message.messageFrom === "sender") ? {
-        alignItems: "flex-end",
-    } : {
-        alignItems: "flex-start",
-    };
-
-    return {
         display: "flex",
-        flexDirection: "column",
-        ...alignment
-    }
-}
-
-export const parentMessageWrapperStyle = (message, props) => {
-
-    const colorProp = (message.messageFrom === "sender") ? {
-        backgroundColor: props.theme.backgroundColor.blue,
-        color: props.theme.color.white
-    } : {
-        backgroundColor: props.theme.backgroundColor.secondary,
-        "a": {
-            color: props.theme.color.primary
-        }
-    };
-
-    return {
-        display: "inline-block",
-        padding: "8px 12px",
-        borderRadius: "12px",
-        height: "100%",
-        maxWidth: "100%",
-        ...colorProp,
-        "img": {
+        alignItems: "center",
+        ...alignment,
+        ".sender__message__container, .receiver__message__container": {
             maxWidth: "100%",
-        },
-        "a": {
-            color: `${props.theme.color.white}`,
-            maxWidth: "100%",
-            "img": {
-                maxWidth: "100%",
+            "&:hover": {
+                ".message__actions": {
+                    display: "none"
+                }
             }
         },
-        "audio, video": {
-            maxWdth: "100%",
-            display: "inherit",
+        ".replycount": {
+            display: "none"
         }
-    }
-}
-
-export const messageTxtStyle = () => {
-
-    return {
-        margin: 0,
-        whiteSpace: "pre-wrap",
-        wordWrap: "break-word",
-        textAlign: "left",
-        fontSize: "14px"
-    }
-}
-
-export const messageTimestampStyle = () => {
-
-    return {
-        display: "inline-block",
-        fontSize: "11px",
-        fontWeight: "500",
-        lineHeight: "12px",
-        textTransform: "uppercase",
-        padding: "0 12px",
     }
 }
 

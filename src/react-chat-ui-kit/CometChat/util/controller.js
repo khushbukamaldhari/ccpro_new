@@ -139,21 +139,6 @@ export class CometChatManager {
 
         return promise;
     }
-
-    // static getCall = () => {
-
-    //     let promise = new Promise((resolve, reject) => {
-
-    //         CometChat.getActiveCall().then(
-    //             call => resolve(call),
-    //             error => reject(error)
-    //         );
-
-    //     });
-
-    //     return promise;
-    // }
-
 }
 
 export default CometChatManager;

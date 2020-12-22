@@ -34,8 +34,6 @@ export const messageAudioWrapperStyle = (props) => {
     return {
         display: "inline-block",
         borderRadius: "12px",
-        backgroundColor: `${props.theme.color.blue}`,
-        padding: "8px 12px",
         alignSelf: "flex-end",
         ' > audio': {
             maxWidth: "250px",
@@ -48,5 +46,16 @@ export const messageInfoWrapperStyle = () => {
 
     return {
         alignSelf: "flex-end",
+    }
+}
+
+export const messageReactionsWrapperStyle = () => {
+
+    return {
+        display: "inline-flex",
+        alignSelf: "flex-end",
+        width: "100%",
+        flexWrap: "wrap",
+        justifyContent: "flex-end",
     }
 }

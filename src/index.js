@@ -26,11 +26,11 @@ import {
     CometChatConversationListScreen,
     CometChatGroupListScreen
 } from './react-chat-ui-kit/CometChat';
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
-import './style.css';
-import ScriptTag from 'react-script-tag';
+// import firebase from "firebase/app";
+// import "firebase/auth";
+// import "firebase/firestore";
+// import './style.css';
+// import ScriptTag from 'react-script-tag';
 const store = createStore(reducer, compose(
   applyMiddleware(thunk)
 ));
@@ -146,10 +146,10 @@ CometChat.init(appID, appSetting).then(() => {
         }
       );
     }else{
-      ReactDOM.render(
-        <CometChatNotLogin />
-      , document.getElementById('ccpro_unified_window')
-      );
+      // ReactDOM.render(
+      //   <CometChatNotLogin />
+      // , document.getElementById('ccpro_unified_window')
+      // );
     }
 
     

@@ -24,9 +24,8 @@ import {
   contactAlphabetStyle
 } from "./style";
 
-import searchIcon from './resources/search-grey-icon.svg';
-import navigateIcon from './resources/navigate_before.svg';
-import { WP_API_CONSTANTS } from '../../../../consts';
+import searchIcon from './resources/search-grey-icon.png';
+import navigateIcon from './resources/navigate.png';
 
 class CometChatUserList extends React.PureComponent {
   timeout;
@@ -36,7 +35,7 @@ class CometChatUserList extends React.PureComponent {
   constructor(props) {
 
     super(props);
-    this.i = 0;
+
     this.state = {
       userlist: [],
       selectedUser: null
@@ -192,15 +191,9 @@ class CometChatUserList extends React.PureComponent {
           this.decoratorMessage = "No users found";
         }
         
-        userList.forEach(user => {
-          if( this.i == 0 ){
-            this.handleClick(user);
-            this.i = 1;
-          }  
-          user = this.setAvatar(user)
-         
-        });
+        userList.forEach(user => user = this.setAvatar(user));
         this.setState({ userlist: [...this.state.userlist, ...userList] });
+          
       }).catch((error) => {
 
         this.decoratorMessage = "Error";
@@ -235,34 +228,31 @@ class CometChatUserList extends React.PureComponent {
         </div>
       );
     }
+
     const userList = [...this.state.userlist];
     let currentLetter = "";
     const users = userList.map((user, key) => {
-      // if( user.uid.startsWith( WP_API_CONSTANTS.WP_PREFIX ) ){
-        const chr = user.name[0].toUpperCase();
-        let firstChar = null;
-        if (chr !== currentLetter) {
-          currentLetter = chr;
-          firstChar = (<div css={contactAlphabetStyle()} className="contacts__list__alphabet-filter">{currentLetter}</div>);
-        } else {
-          firstChar = null;
-        }
-  
-        return (
-          <React.Fragment key={key}>
-            {firstChar}
-            <UserView 
-            theme={this.theme}
-            user={user} 
-            selectedUser={this.state.selectedUser}
-            widgetsettings={this.props.widgetsettings} 
-            clickeHandler={this.handleClick}  />
-          </React.Fragment>
-        );
-      // }else{
-        
-      // }
       
+      const chr = user.name[0].toUpperCase();
+      let firstChar = null;
+      if (chr !== currentLetter) {
+        currentLetter = chr;
+        firstChar = (<div css={contactAlphabetStyle()} className="contacts__list__alphabet-filter">{currentLetter}</div>);
+      } else {
+        firstChar = null;
+      }
+
+      return (
+        <React.Fragment key={key}>
+          {firstChar}
+          <UserView 
+          theme={this.theme}
+          user={user} 
+          selectedUser={this.state.selectedUser}
+          widgetsettings={this.props.widgetsettings} 
+          clickeHandler={this.handleClick}  />
+        </React.Fragment>
+      );
 
     });
 
@@ -275,7 +265,7 @@ class CometChatUserList extends React.PureComponent {
       <div css={contactWrapperStyle()} className="contacts">
         <div css={contactHeaderStyle(this.theme)} className="contacts__header">
           {closeBtn}
-          <h4 css={contactHeaderTitleStyle(this.props)} className="header__title">Attendees</h4>
+          <h4 css={contactHeaderTitleStyle(this.props)} className="header__title">Contacts</h4>
           <div></div>
         </div>
         <div css={contactSearchStyle()} className="contacts__search">

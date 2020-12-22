@@ -12,7 +12,6 @@ export class CallAlertManager {
             this.callListenerId,
             new CometChat.CallListener({
                 onIncomingCallReceived: call => {
-                    console.log( "Receiving Call: ", call );
                     callback(enums.INCOMING_CALL_RECEIVED, call);
                 },
                 onIncomingCallCancelled: call => {

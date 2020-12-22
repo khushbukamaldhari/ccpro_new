@@ -25,10 +25,9 @@ import {
   chatsListStyle
 } from "./style";
 
-import navigateIcon from './resources/navigate_before.svg';
+import navigateIcon from './resources/navigate.png';
 
 import { incomingOtherMessageAlert } from "../../resources/audio/";
-import { WP_API_CONSTANTS } from '../../../../consts';
 
 class CometChatConversationList extends React.Component {
 
@@ -36,9 +35,9 @@ class CometChatConversationList extends React.Component {
   decoratorMessage = "Loading...";
 
   constructor(props) {
-    
+
     super(props);
-    this.i = 0;
+
     this.state = {
       conversationlist: [],
       onItemClick: null,
@@ -51,8 +50,6 @@ class CometChatConversationList extends React.Component {
   }
 
   componentDidMount() {
-
-    this.audio = new Audio(incomingOtherMessageAlert);
 
     this.ConversationListManager = new ConversationListManager();
     this.getConversations();
@@ -94,9 +91,7 @@ class CometChatConversationList extends React.Component {
           conversationlist.splice(conversationKey, 1, newConversationObj);
           this.setState({ conversationlist: conversationlist, selectedConversation: newConversationObj });
         }
-
       }
-
     }
 
     //if user is blocked/unblocked, update conversationlist in state
@@ -118,8 +113,8 @@ class CometChatConversationList extends React.Component {
     }
 
     if (prevProps.groupToUpdate
-      && (prevProps.groupToUpdate.guid !== this.props.groupToUpdate.guid
-        || (prevProps.groupToUpdate.guid === this.props.groupToUpdate.guid && (prevProps.groupToUpdate.membersCount !== this.props.groupToUpdate.membersCount || prevProps.groupToUpdate.scope !== this.props.groupToUpdate.scope)))) {
+    && (prevProps.groupToUpdate.guid !== this.props.groupToUpdate.guid
+    || (prevProps.groupToUpdate.guid === this.props.groupToUpdate.guid && (prevProps.groupToUpdate.membersCount !== this.props.groupToUpdate.membersCount || prevProps.groupToUpdate.scope !== this.props.groupToUpdate.scope)))) {
 
       const conversationlist = [...this.state.conversationlist];
       const groupToUpdate = this.props.groupToUpdate;
@@ -163,8 +158,7 @@ class CometChatConversationList extends React.Component {
       });
 
     }
-    console.log(prevProps.lastMessage);
-    console.log(this.props.lastMessage);
+
     if (prevProps.lastMessage !== this.props.lastMessage) {
 
       const lastMessage = this.props.lastMessage;
@@ -253,16 +247,6 @@ class CometChatConversationList extends React.Component {
     if (validateWidgetSettings(this.props.widgetsettings, "enable_sound_for_messages") === false) {
       return false;
     }
-
-    //if it is disabled for chat wigdet in dashboard
-    // if (this.props.hasOwnProperty("widgetsettings")
-    // && this.props.widgetsettings
-    // && this.props.widgetsettings.hasOwnProperty("main")
-    // && (this.props.widgetsettings.main.hasOwnProperty("enable_sound_for_messages") === false
-    // || (this.props.widgetsettings.main.hasOwnProperty("enable_sound_for_messages")
-    // && this.props.widgetsettings.main["enable_sound_for_messages"] === false))) {
-    //   return false;
-    // }
 
     if (message.category === enums.CATEGORY_ACTION 
     && message.type === enums.ACTION_TYPE_GROUPMEMBER 
@@ -585,13 +569,9 @@ class CometChatConversationList extends React.Component {
         }
 
         conversationList.forEach(conversation => {
-          
+
           if(conversation.conversationType === "user" && !conversation.conversationWith.avatar) {
             conversation.conversationWith.avatar = this.setAvatar(conversation);
-            if( this.i == 0 ){
-              this.handleClick(conversation);
-              this.i = 1;
-            }  
           } else if(conversation.conversationType === "group" && !conversation.conversationWith.icon) {
             conversation.conversationWith.icon = this.setAvatar(conversation);
           }

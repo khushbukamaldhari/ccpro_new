@@ -48,3 +48,14 @@ export const messageInfoWrapperStyle = () => {
         alignSelf: "flex-end",
     }
 }
+
+export const messageReactionsWrapperStyle = () => {
+
+    return {
+        display: "inline-flex",
+        alignSelf: "flex-end",
+        width: "100%",
+        flexWrap: "wrap",
+        justifyContent: "flex-end",
+    }
+}

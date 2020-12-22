@@ -1,5 +1,3 @@
-import React from "react";
-
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 
@@ -16,6 +14,7 @@ const createpollview = (props) => {
             <td>
                 <input 
                 autoFocus
+                tabIndex={props.tabIndex}
                 type="text" 
                 autoComplete="off" 
                 placeholder="Enter your option" 

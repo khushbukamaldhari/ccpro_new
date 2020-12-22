@@ -36,10 +36,13 @@ export const messageFileWrapper = (props) => {
         borderRadius: "12px",
         backgroundColor: `${props.theme.backgroundColor.blue}`,
         color: `${props.theme.color.white}`,
-        padding: "8px 12px",
+        padding: "8px 16px",
         alignSelf: "flex-end",
         maxWidth: "100%",
         "> a": {
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
             background: "0 0",
             textDecoration: "none",
             color: `${props.theme.color.white}`,
@@ -49,8 +52,14 @@ export const messageFileWrapper = (props) => {
                 color: `${props.theme.color.white}`,
                 textDecoration: "none",
             },
-            "img": {
-                backgroundColor: `${props.theme.backgroundColor.white}`,
+            "> p": {
+                margin: "0",
+                whiteSpace: "pre-wrap",
+                wordBreak: "break-word",
+                textAlign: "left",
+                width: "100%",
+                fontSize: "14px",
+                marginLeft: "8px"
             }
         }
     }
@@ -60,5 +69,16 @@ export const messageInfoWrapperStyle = () => {
 
     return {
         alignSelf: "flex-end",
+    }
+}
+
+export const messageReactionsWrapperStyle = () => {
+
+    return {
+        display: "inline-flex",
+        alignSelf: "flex-end",
+        width: "100%",
+        flexWrap: "wrap",
+        justifyContent: "flex-end",
     }
 }
