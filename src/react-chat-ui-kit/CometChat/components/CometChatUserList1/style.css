@@ -1,0 +1,11 @@
+.ccpro_online_user{
+    height: auto !important;
+    overflow: initial !important;
+}
+.ccpro_offline_user{
+    height: 100% ;
+    overflow: initial !important;
+}
+.ccpro_user_list{
+    overflow-y: auto;
+}

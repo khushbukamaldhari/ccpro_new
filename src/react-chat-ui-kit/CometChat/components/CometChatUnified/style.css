@@ -1,0 +1,45 @@
+
+.ccpro-show-loader .ccpro_loader{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease 0s;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 9;
+}
+#ccpro_unified_window > div{
+    position: relative;
+}
+.ccpro-show-loader .ccpro_loader_inner{
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    background-color: #fff;
+    margin: 0 auto;
+    animation: loder 1s infinite;
+}
+@keyframes loder {
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(2);
+    }
+    100%{
+        transform: scale(1);
+    }
+    
+}
+.pageloaded .ccpro_loader{
+    opacity: 0;
+    visibility: hidden;
+}
+.pageloaded .ccpro_loader{
+    transform: scale(10);
+}

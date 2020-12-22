@@ -1,0 +1,39 @@
+.ccpro_btn {
+    background: #53c1ab;
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 12px;
+    color: #000;
+    border: none;
+    border-radius: 50px;
+}
+
+.ccpro_btn:hover{
+
+    background: #000;
+    color: #fff;
+ 
+}
+.ccpro_leave_btn {
+    width: 100%;
+    margin: 10px 0 0;
+    padding: 0;
+}
+
+.ccpro_leave_btn button {
+    font-size: 13px;
+    font-weight: normal;
+}
+.ccpro_room_innerDiv {
+    display: flex;
+}
+
+.ccpro_room_innerDiv .ccpro_leave_btn {
+    padding: 0;
+    margin: 0;
+}
+
+.ccpro_room_innerDiv .ccpro_leave_btn button {
+    padding: 2px 10px;
+   
+}

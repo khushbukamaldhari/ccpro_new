@@ -1,0 +1,1044 @@
+.ccpro_group-content {
+  flex-direction: row !important;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding: 15px;
+}
+
+.ccpro_group-table-block {
+  display: inline-block;
+  width: 32%;
+  margin-bottom: 20px;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.ccpro_group-content .ccpro_group-table-block:last-child() {
+  margin-right: 0;
+}
+
+.ccpro_group-content .ccpro_group-table-block {
+  margin-right: 2%;
+  width: calc(34% - 2%);
+  max-height: 250px;
+}
+
+.details svg {
+  width: 150px;
+  height: 150px;
+}
+
+.ccpro_table-name {
+  margin: 15px 0;
+}
+
+.ccpro_btn {
+  background: #53c1ab;
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 12px;
+  color: #000;
+  border: none;
+  border-radius: 50px;
+}
+
+.ccpro_btn:hover {
+  background: #000;
+  color: #fff;
+}
+
+.ccpro_group-table-block {
+  position: relative;
+}
+
+.ccpro_table-users {
+  /* position: absolute;
+    background:rgba(255, 192, 203,0.5); */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.ccpro_table-users ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ccpro_table-users li img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #ef7b09;
+  transition: .20s all;
+}
+
+.ccpro_table-users li {
+  position: absolute;
+}
+
+.ccpro_table-users li .ccpro_tooltip {
+  background: #34baa1;
+  padding: 3px 10px;
+  display: inline-block;
+  text-align: center;
+  border-radius: 5px;
+  left: 50%;
+  top: -25px;
+  transform: translate(-50%);
+  margin-top: 0px;
+  z-index: 200;
+  transition: .10s all;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  font-size: 11px;
+}
+
+.ccpro_table-users li:hover .ccpro_tooltip {
+  opacity: 1;
+  width: auto;
+  height: auto;
+  overflow: visible;
+}
+
+.ccpro_tooltip:after {
+  width: 10px;
+  height: 15px;
+  transform: rotate(-45deg);
+  content: "";
+  background: #34baa1;
+  display: inline-block;
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  z-index: -10;
+  margin-left: -8px;
+}
+
+.ccpro_table-users li:hover {
+  z-index: 1;
+}
+
+.ccpro_table-users li:hover .ccpro_table-user-avatar {
+  border-color: #34baa1;
+}
+
+.ccpro_table-users li:hover .ccpro_tooltip {
+  opacity: 1;
+  width: auto;
+  height: auto;
+  overflow: visible;
+}
+.tableIsFull{
+  color:red;
+  font-weight: 500;
+  cursor: inherit;
+}
+/*
+.ccpro_table-users-4 ul li:nth-child(1) {
+
+    top: 5%;
+    left: 44.4%;
+
+}
+.ccpro_table-users-4 ul li:nth-child(1) .ccpro_tooltip {
+    top: -100%;
+    left: -45%;
+}
+.ccpro_table-users li .ccpro_tooltip {
+    position: absolute;
+    opacity:0;
+}
+
+.ccpro_table-users-4 ul li:nth-child(1) {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.ccpro_table-users-4 ul li:nth-child(2) {
+    top: 28%;
+    right: 8%;
+    transform: translateX(-50%);
+}
+
+.ccpro_table-users-4 ul li:nth-child(3) {
+    top: 28%;
+    left: 24%;
+    transform: translateX(-50%);
+}
+
+.ccpro_table-users-4 ul li:nth-child(4) {
+    bottom: 33%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.ccpro_table-users-8 ul li:nth-child(1) {
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.ccpro_table-users-8 ul li:nth-child(2) {
+     top: 11%;
+    right: 17%;
+    transform: translateX(-50%);
+}
+
+.ccpro_table-users-8 ul li:nth-child(3) {
+    top: 28%;
+right: 9%;
+    transform: translateX(-50%);
+}
+
+.ccpro_table-users-8 ul li:nth-child(4) {
+     bottom: 40%;
+    right: 17%;
+    transform: translateX(-50%);
+}
+.ccpro_table-users-8 ul li:nth-child(5) {
+    bottom: 33%;
+    right: 34%;
+    transform: translateX(-50%);
+}
+.ccpro_table-users-8 ul li:nth-child(6) {
+      bottom: 41%;
+    right: 52%;
+    transform: translateX(-50%);
+}
+.ccpro_table-users-8 ul li:nth-child(7) {
+ bottom: 57%;
+    right: 59%;
+
+    transform: translateX(-50%);
+}
+.ccpro_table-users-8 ul li:nth-child(8) {
+    bottom: 74%;
+    right: 52%;
+    transform: translateX(-50%);
+}
+
+.ccpro_table-users-2 ul li:nth-child(1) {
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.ccpro_table-users-2 ul li:nth-child(2) {
+    bottom: 33%;
+    right: 34%;
+    transform: translateX(-50%);
+}
+
+.ccpro_table-users-3 li:nth-child(1) {
+    top: 4%;
+    left: 45%;
+}
+
+
+.ccpro_table-users-3 li:nth-child(2) {
+    top: 17%;
+    right: 26.5%;
+}
+
+
+.ccpro_table-users-3 li:nth-child(3) {
+    top: 17%;
+    left: 27%;
+}
+
+@media screen and (max-width: 1200px)
+{
+    .ccpro_table-users-2 ul li:nth-child(2){bottom: 33%;right: 26%;}
+    .ccpro_table-users-4 ul li:nth-child(2){right: -7%;}
+    .ccpro_table-users-4 ul li:nth-child(3){left: 18%;}
+    .ccpro_table-users-4 ul li:nth-child(4){left: 52%;}
+    .ccpro_table-users-8 ul li:nth-child(3){right: -8%;}
+    .ccpro_table-users-8 ul li:nth-child(2) {right: 3%;}
+    .ccpro_table-users-8 ul li:nth-child(4) {right: 3%;}
+    .ccpro_table-users-8 ul li:nth-child(5) {right: 26%;}
+    .ccpro_table-users-3 li:nth-child(1) {top: 9%;left: 42%;}
+    .ccpro_table-users-3 li:nth-child(2) {top: 20%;right: 11%;}
+    .ccpro_table-users-3 li:nth-child(3) {top: 20%;left: 11%;}
+
+
+}
+@media screen and (max-width: 980px)
+{
+
+.ccpro_group-content .ccpro_group-table-block:nth-child(2n)
+{margin-right: 0;}
+.ccpro_group-content .ccpro_group-table-block:nth-child(3n)
+{margin-right: 2%;}
+.ccpro_group-content .ccpro_group-table-block
+{width: 49%;}
+.ccpro_table-users-3 li:nth-child(2) {top: 39%;right: 12%;}
+.ccpro_table-users-3 li:nth-child(3) {top: 39%;left: 13%;}
+
+}
+
+@media screen and (max-width: 767px)
+{}
+
+@media screen and (max-width: 480px)
+{
+    .ccpro_group-content .ccpro_group-table-block
+    {width: 100%;margin-right:0!important;}
+    .ccpro_table-users-2 ul li:nth-child(2) {right: 35%;}
+    .ccpro_table-users-4 ul li:nth-child(2) {right: 10%;}
+    .ccpro_table-users-4 ul li:nth-child(3) {left: 26%;}
+    .ccpro_table-users-8 ul li:nth-child(2) {right: 19%;}
+    .ccpro_table-users-8 ul li:nth-child(3) {right: 11%;}
+    .ccpro_table-users-8 ul li:nth-child(4) {right: 19%;}
+    .ccpro_table-users-8 ul li:nth-child(5) {right: 35%;}
+
+    .ccpro_table-users-3 li:nth-child(1) {top: 9%;left: 44%;}
+    .ccpro_table-users-3 li:nth-child(2) {top: 39%;right: 21%;}
+    .ccpro_table-users-3 li:nth-child(3) {top: 39%;left: 21.3%;}
+} */
+/* ======== Table 2 ======== */
+.ccpro_table-users.ccpro_table-users-2 .ccpro_table-users-list li:first-child {
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ccpro_table-users.ccpro_table-users-2 .ccpro_table-users-list li:nth-child(2) {
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* ======== Table 3 ======== */
+.ccpro_table-users.ccpro_table-users-3 .table-image svg {
+  width: 130px;
+}
+
+.ccpro_table-users.ccpro_table-users-3 .ccpro_table-users-list li:first-child {
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ccpro_table-users.ccpro_table-users-3 .ccpro_table-users-list li:nth-child(2) {
+  left: 32%;
+  top: 41%;
+  transform: translateX(-50%);
+}
+
+.ccpro_table-users.ccpro_table-users-3 .ccpro_table-users-list li:nth-child(3) {
+  right: 21%;
+  top: 41%;
+  transform: translateX(-50%);
+}
+
+/* ======== Table 4 ======== */
+.ccpro_table-users.ccpro_table-users-4 .table-image svg {
+  width: 110px;
+}
+
+.ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:first-child {
+  top: 4%;
+  left: 51%;
+  transform: translateX(-50%);
+}
+
+.ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:nth-child(2) {
+  bottom: auto;
+  top: 30%;
+  left: 32%;
+  right: auto;
+  transform: translateX(-50%);
+}
+
+.ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:nth-child(3) {
+  left: 44%;
+  top: auto;
+  transform: translateY(-50%);
+  bottom: 20%;
+}
+
+.ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:nth-child(4) {
+  right: 26%;
+  top: 38%;
+  transform: translateY(-50%);
+  left: auto;
+  bottom: auto;
+}
+
+/* ======== Table 5 ======== */
+.ccpro_table-users.ccpro_table-users-5 .table-image svg {
+  width: 140px;
+}
+
+.ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:first-child {
+  top: 6%;
+  left: 51%;
+  transform: translateX(-50%);
+}
+
+.ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(2) {
+  top: 22%;
+  left: 27%;
+  transform: rotate(-45deg);
+}
+
+.ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(3) {
+  bottom: 32%;
+  left: 33%;
+  transform: rotate(-5deg);
+}
+
+.ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(4) {
+  bottom: 34%;
+  right: 32%;
+  transform: rotate(-5deg);
+}
+
+.ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(5) {
+  top: 24%;
+  right: 28%;
+  transform: rotate(45deg);
+}
+
+/* .ccpro_table-users.ccpro_table-users- */
+/* ======== Table 6 ======== */
+.ccpro_table-users.ccpro_table-users-6 .table-image svg {
+  width: 110px;
+}
+
+.ccpro_table-users.ccpro_table-users-6 .ccpro_table-users-list li:first-child {
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ccpro_table-users.ccpro_table-users-6 .ccpro_table-users-list li:nth-child(2) {
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ccpro_table-users.ccpro_table-users-6 .ccpro_table-users-list li:nth-child(3) {
+  top: 20px;
+  left: 24%;
+  transform: rotate(-45deg);
+}
+
+.ccpro_table-users.ccpro_table-users-6 .ccpro_table-users-list li:nth-child(4) {
+  bottom: 20px;
+  left: 24%;
+  transform: rotate(45deg);
+}
+
+.ccpro_table-users.ccpro_table-users-6 .ccpro_table-users-list li:nth-child(5) {
+  top: 20px;
+  right: 24%;
+  transform: rotate(45deg);
+}
+
+.ccpro_table-users.ccpro_table-users-6 .ccpro_table-users-list li:nth-child(6) {
+  bottom: 20px;
+  right: 24%;
+  transform: rotate(-45deg);
+}
+
+/* ======== Table 7 ======== */
+.ccpro_table-users.ccpro_table-users-7 .table-image svg {
+  width: 140px;
+}
+
+.ccpro_table-users.ccpro_table-users-7 .ccpro_table-users-list li:first-child {
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ccpro_table-users.ccpro_table-users-7 .ccpro_table-users-list li:nth-child(2) {
+  top: 22px;
+  left: 22%;
+  transform: rotate(-45deg);
+}
+
+.ccpro_table-users.ccpro_table-users-7 .ccpro_table-users-list li:nth-child(3) {
+  bottom: 13px;
+  left: 23%;
+  transform: rotate(45deg);
+}
+
+.ccpro_table-users.ccpro_table-users-7 .ccpro_table-users-list li:nth-child(4) {
+  top: 22px;
+  right: 22%;
+  transform: rotate(45deg);
+}
+
+.ccpro_table-users.ccpro_table-users-7 .ccpro_table-users-list li:nth-child(5) {
+  bottom: 13px;
+  right: 23%;
+  transform: rotate(-45deg);
+}
+
+.ccpro_table-users.ccpro_table-users-7 .ccpro_ccpro_table-users-list li:nth-child(6) {
+  top: 54%;
+  left: 30px;
+  transform: translateY(-50%);
+}
+
+.ccpro_table-users.ccpro_table-users-7 .ccpro_ccpro_table-users-list li:nth-child(7) {
+  top: 54%;
+  right: 30px;
+  transform: translateY(-50%);
+}
+
+/* ======== Table 8 ======== */
+.ccpro_table-users.ccpro_table-users-8 .table-image svg {
+  width: 130px;
+}
+
+.ccpro_table-users-8 ul li:first-child,
+.ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:first-child {
+  top: 4%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ccpro_table-users-8 ul li:nth-child(2),
+.ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(2) {
+  bottom: auto;
+  left: 37%;
+  right: auto;
+  transform: translateX(-53%) rotate(-27deg);
+  top: 12%;
+}
+
+.ccpro_table-users-8 ul li:nth-child(3),
+.ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(3) {
+  top: 31%;
+  left: 26%;
+  right: auto !important;
+  transform: rotate(-85deg);
+}
+
+.ccpro_table-users-8 ul li:nth-child(4),
+.ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(4) {
+  bottom: 24%;
+  right: auto !important;
+  left: 44%;
+  transform: rotate(-2deg);
+}
+
+.ccpro_table-users-8 ul li:nth-child(5),
+.ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(5) {
+  top: 12%;
+  right: 32%;
+  bottom: auto;
+  transform: rotate(45deg);
+}
+
+.ccpro_table-users-8 ul li:nth-child(6),
+.ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(6) {
+  bottom: 52%;
+  right: 26%;
+  transform: rotate(85deg);
+}
+
+.ccpro_table-users-8 ul li:nth-child(7),
+.ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(7) {
+  top: auto;
+  right: auto;
+  left: 31%;
+  bottom: 24%;
+  transform: translateY(-50%);
+}
+
+.ccpro_table-users-8 ul li:nth-child(8),
+.ccpro_table-users.ccpro_table-users-8 .ccpro_table-users-list li:nth-child(8) {
+  top: auto;
+  right: 32%;
+  bottom: 24%;
+  transform: translateY(-50%);
+}
+
+/* .ccpro_table-users-8 ul li:nth-child(8),
+.ccpro_table-users.ccpro_table-users-8 .ccpro_table-users-list li:nth-child(8)
+{    right: 12%;    bottom: 27%;} */
+@media screen and (max-width: 1440px) {}
+
+@media screen and (max-width: 1366px) {
+  .ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:nth-child(2) {
+    top: 30%;
+    left: 31%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:nth-child(4) {
+    right: 24.5%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(2) {
+    top: 21%;
+    left: 26%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(3) {
+    bottom: 32%;
+    left: 32%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(5) {
+    top: 23%;
+    right: 26%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(4) {
+    bottom: 34%;
+    right: 31%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(5),
+  .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(5) {
+    top: 12%;
+    right: 31%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(6),
+  .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(6) {
+    bottom: 52%;
+    right: 25%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(8),
+  .ccpro_table-users.ccpro_table-users-8 .ccpro_table-users-list li:nth-child(8) {
+    right: 30.5%;
+    bottom: 24%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(3),
+  .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(3) {
+    left: 25%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(7),
+  .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(7) {
+    left: 30%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(2),
+  .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(2) {
+    left: 36%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-3 .ccpro_table-users-list li:nth-child(2) {
+    left: 32%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-3 .ccpro_table-users-list li:nth-child(3) {
+    right: 19.5%;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:nth-child(2) {
+    top: 30%;
+    left: 31%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:nth-child(4) {
+    right: 24.5%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(2) {
+    left: 21%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(3) {
+    left: 28%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(5) {
+    right: 22%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(4) {
+    right: 28%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-3 .ccpro_table-users-list li:nth-child(2) {
+    left: 30%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-3 .ccpro_table-users-list li:nth-child(3) {
+    right: 17.5%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:nth-child(2) {
+    left: 30%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:nth-child(4) {
+    right: 22.5%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(2) {
+    left: 25%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(3) {
+    left: 31%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(4) {
+    right: 30%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(5) {
+    right: 22%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(3), .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(3) {
+    left: 23%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(5), .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(5) {
+    right: 30%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(6), .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(6) {
+    right: 23%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(7), .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(7) {
+    left: 29%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(8), .ccpro_table-users.ccpro_table-users-8 .ccpro_table-users-list li:nth-child(8) {
+    right: 29.5%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-3 .ccpro_table-users-list li:nth-child(2) {
+    left: 28%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-3 .ccpro_table-users-list li:nth-child(3) {
+    right: 13.5%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:nth-child(2) {
+    top: 30%;
+    left: 27%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:nth-child(4) {
+    right: 19.5%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(2) {
+    left: 21%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(3) {
+    left: 28%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(4) {
+    right: 27%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(5), .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(5) {
+    right: 27%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(6), .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(6) {
+    right: 20%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(8), .ccpro_table-users.ccpro_table-users-8 .ccpro_table-users-list li:nth-child(8) {
+    right: 26.5%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(7), .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(7) {
+    left: 27%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(3), .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(3) {
+    left: 20%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(2), .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(2) {
+    left: 34%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .ccpro_table-users.ccpro_table-users-3 .ccpro_table-users-list li:first-child {
+    left: 50%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-3 .ccpro_table-users-list li:nth-child(3) {
+    right: 2%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-3 .ccpro_table-users-list li:nth-child(2) {
+    left: 21%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:nth-child(2) {
+    left: 20%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:nth-child(4) {
+    right: 10%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:nth-child(3) {
+    left: 42%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:first-child {
+    left: 50%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(2) {
+    left: 12%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(3) {
+    left: 22%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(4) {
+    right: 20%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(5) {
+    right: 12%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(5) {
+    right: 12%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(6),
+  .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(6) {
+    right: 10%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(2),
+  .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(2) {
+    left: 28%;
+    top: 12%;
+    right: auto !important;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(3),
+  .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(3) {
+    left: 10%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(5),
+  .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(5) {
+    right: 21% !important;
+    top: 11%;
+  }
+
+  .ccpro_table-users-8 ul li:first-child,
+  .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:first-child {
+    left: 50%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(7),
+  .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(7) {
+    left: 18%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(8),
+  .ccpro_table-users.ccpro_table-users-8 .ccpro_table-users-list li:nth-child(8) {
+    right: 19%;
+    bottom: 24%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(4), .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(4) {
+    left: 40%;
+    bottom: 24%;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .ccpro_group-content .ccpro_group-table-block {
+    width: calc(51% - 2%);
+  }
+
+  .ccpro_table-users.ccpro_table-users-3 .ccpro_table-users-list li:first-child {
+    left: 51%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-3 .ccpro_table-users-list li:nth-child(3) {
+    right: 3%;
+    top: 43%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:first-child {
+    left: 50%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:nth-child(3) {
+    left: 42%;
+    bottom: 16%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:nth-child(4) {
+    right: 11%;
+    top: 39%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(5) {
+    right: 14%;
+    top: 24%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(3) {
+    left: 22%;
+    bottom: 33%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(2), .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(2) {
+    left: 30%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(4) {
+    right: 21%;
+    bottom: 34%;
+  }
+
+  .ccpro_table-users-8 ul li:first-child,
+  .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:first-child {
+    left: 50%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(5),
+  .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(5) {
+    right: 16% !important;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(6),
+  .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(6) {
+    right: 11%;
+    bottom: 54%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(8),
+  .ccpro_table-users.ccpro_table-users-8 .ccpro_table-users-list li:nth-child(8) {
+    right: 21%;
+    bottom: 27%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-3 .ccpro_table-users-list li:nth-child(2) {
+    left: 22%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:nth-child(2) {
+    left: 21%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(2) {
+    left: 14%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(3), .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(3) {
+    left: 12%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(4), .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(4) {
+    left: 42%;
+    bottom: 28%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(5), .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(5) {
+    right: 21% !important;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(7), .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(7) {
+    left: 20%;
+    bottom: 28%;
+  }
+}
+
+@media screen and (max-width: 767px) {}
+
+@media screen and (max-width: 480px) {
+  .ccpro_group-content .ccpro_group-table-block {
+    width: 100%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-3 .ccpro_table-users-list li:nth-child(3) {
+    right: 10%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-3 .ccpro_table-users-list li:nth-child(2) {
+    left: 26%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-3 .ccpro_table-users-list li:first-child {
+    left: 50%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:nth-child(4) {
+    right: 17%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:nth-child(3) {
+    left: 43%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-4 .ccpro_table-users-list li:nth-child(2) {
+    left: 25%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(5) {
+    right: 19%;
+    top: 25%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(4) {
+    right: 26%;
+    bottom: 30%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(2) {
+    left: 19%;
+  }
+
+  .ccpro_table-users.ccpro_table-users-5 .ccpro_table-users-list li:nth-child(3) {
+    left: 26%;
+    bottom: 29%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(2), .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(2) {
+    left: 32%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(3), .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(3) {
+    left: 17%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(5), .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(5) {
+    right: 25% !important;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(6), .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(6) {
+    right: 17%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(7), .ccpro_table-users.ccpro_table-users-8 .ccpro_ccpro_table-users-list li:nth-child(7) {
+    left: 24%;
+  }
+
+  .ccpro_table-users-8 ul li:nth-child(8), .ccpro_table-users.ccpro_table-users-8 .ccpro_table-users-list li:nth-child(8) {
+    right: 25%;
+    bottom: 27%;
+  }
+}
